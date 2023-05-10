@@ -1,7 +1,7 @@
 <?php
 require '../app/class/task.php';
 
-$result = view_tasks();
+$result = view_completed_tasks();
 
 session_start();
 $errors = array();
@@ -23,19 +23,15 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
 
 //MESSAGES
 if($result->num_rows == 0){
-    $emptyinfo = "You dont have any current tasks - Take a rest or create tasks!";
+    $emptyinfo = "You haven't completed any task yet!";
 }
 
-if (isset($_POST['delete'])) {
+if (isset($_POST['revert'])) {
     $id = $_POST["id"];
-    delete_task($id);
+    revert_task($id);
 } 
 
-if (isset($_POST['complete'])) {
-    $id = $_POST["id"];
-    complete_task($id);
-} 
 
-include "../views/show_task_view.php";
+
+include "../views/show_completed_task_view.php";
 ?>
-		

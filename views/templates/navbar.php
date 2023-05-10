@@ -6,17 +6,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/view-task">View Tasks</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">View Tasks</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/view-task">Ongoing Tasks</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/view-overdue-task">Overdue Tasks</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/view-completed-task">Completed Tasks</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/create-task">Create Tasks</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/create-tag">Create Tags</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/view-completed-task">Completed Tasks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/create-task">Create Tasks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/create-tag">Create Tags</a>
+                        <a class="nav-link active" aria-current="page" href="#">Show Statistics</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">

@@ -9,10 +9,6 @@
         <link rel="icon" href="assets/notebook-icon.png" type="image/x-icon"/>
 
         <style>
-            .bg-dark {
-                background-color: rgba(33,36,40,255)!important;
-            }
-
             .navbar .navbar-nav /*.nav-item:not(:last-child)*/ .nav-link{
                 border-left: 2px solid white;
             }

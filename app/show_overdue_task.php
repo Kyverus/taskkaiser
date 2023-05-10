@@ -1,7 +1,7 @@
 <?php
 require '../app/class/task.php';
 
-$result = view_tasks();
+$result = view_overdue_tasks();
 
 session_start();
 $errors = array();
@@ -23,7 +23,7 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
 
 //MESSAGES
 if($result->num_rows == 0){
-    $emptyinfo = "You dont have any current tasks - Take a rest or create tasks!";
+    $emptyinfo = "Congratulations, You dont have any overdue tasks!";
 }
 
 if (isset($_POST['delete'])) {
@@ -36,6 +36,6 @@ if (isset($_POST['complete'])) {
     complete_task($id);
 } 
 
-include "../views/show_task_view.php";
+include "../views/show_overdue_task_view.php";
 ?>
 		

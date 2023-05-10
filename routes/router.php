@@ -5,7 +5,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 function route($uri, $routes) {
     if(array_key_exists($uri, $routes)){
-        require $routes[$uri];
+        require_once $routes[$uri];
     }else{
         abort();
     }
@@ -13,7 +13,7 @@ function route($uri, $routes) {
 
 function abort($code = 404){
      http_response_code($code);
-     require "../views/{$code}.php";
+     require_once "../views/{$code}.php";
      die();
 }
 

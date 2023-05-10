@@ -1,5 +1,5 @@
 <?php 
-$PageTitle = "View Tasks"; 
+$PageTitle = "View Overdue Tasks"; 
 include "templates/header.php" ?>
 
 <div class="alert-display">
@@ -47,7 +47,7 @@ include "templates/header.php" ?>
         <th>Type</th>
         <th>Deadline</th>
         <th>Tags</th>
-        <th>Action</th>
+        <!-- <th>Action</th> -->
     </tr>
 
 <?php 
@@ -63,14 +63,12 @@ if ($result->num_rows > 0) {
         <td><?= $row['type']; ?></td>
         <td><?= $row['deadline']; ?></td>
         <td><?= $row['main_tag']; ?></td>
-        <td>
+        <!-- <td>
             <form method="post" style="display:inline">
                 <input type="hidden" name="id" value="<?=$row['id']; ?>">
-                <button class="btn btn-success" href="#" type="submit" value="complete" name="complete">Complete</button>&nbsp;
-                <a class="btn btn-info" href="/edit-task?id=<?php echo $row['id']; ?>">Edit</a>&nbsp;
-                <button class="btn btn-danger" href="#" type="submit" value="delete" name="delete">Delete</button>
+                <button class="btn btn-warning" href="#" type="submit" value="revert" name="revert">Revert</button>&nbsp;
             </form>
-        </td>
+        </td> -->
     </tr>
 
 <?php 
