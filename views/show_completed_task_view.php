@@ -40,7 +40,7 @@ include "templates/header.php" ?>
 
 <div class="container">
 <?php
-if ($result->num_rows > 0) {
+if ($completed_tasks->num_rows > 0) {
 ?>
     <table class="table table-dark">
         <tr>
@@ -54,20 +54,20 @@ if ($result->num_rows > 0) {
         </tr>
 
 <?php 
-    while($row = $result->fetch_assoc()){ 
+    while($task = $completed_tasks->fetch_assoc()){ 
 ?>
 
         <tr>
-            <td><?= $row['id']; ?></td>
-            <td><?= $row['name']; ?></td>
-            <td><?= $row['description']; ?></td>
-            <td><?= $row['type']; ?></td>
-            <td><?= $row['deadline']; ?></td>
-            <td><?= $row['main_tag']; ?></td>
+            <td><?= $task['id']; ?></td>
+            <td><?= $task['name']; ?></td>
+            <td><?= $task['description']; ?></td>
+            <td><?= $task['type']; ?></td>
+            <td><?= $task['deadline']; ?></td>
+            <td><?= $task['main_tag']; ?></td>
             <td>
                 <form method="post" style="display:inline">
-                    <input type="hidden" name="id" value="<?=$row['id']; ?>">
-                    <button class="btn btn-warning" href="#" type="submit" value="revert" name="revert">Revert</button>&nbsp;
+                    <input type="hidden" name="task_id" value="<?=$task['id']; ?>">
+                    <button class="btn btn-warning" href="#" type="submit" value="task_revert" name="task_revert">Revert</button>&nbsp;
                 </form>
             </td>
         </tr>

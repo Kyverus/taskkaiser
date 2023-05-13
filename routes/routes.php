@@ -1,5 +1,4 @@
 <?php
-    
     $routes = [
         '/' => '../views/landing_page_view.php',
         '/view-task' => '../app/show_task.php',

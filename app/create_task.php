@@ -1,42 +1,45 @@
 <?php 	
-		require '../app/class/task.php';
+require '../app/class/task.php';
+require '../app/class/type.php';
+require '../app/class/tag.php';
 
-		session_start();
-		$errors = array();
-		$success = null;
+	$types = get_types();
+	$tags = get_tags();
 
-		//SUCCESS
-		if(isset($_SESSION['success']) && $_SESSION['success'] != ''){
-			$success = $_SESSION['success'];
-			unset($_SESSION['success']);
-		}
+	session_start();
+	$errors = array();
+	$success = null;
 
-		if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
-			array_push($errors,$_SESSION['error']);
-			unset($_SESSION['error']);
-		}
-	
-		$name = $type = $deadline = "";
+	//SUCCESS
+	if(isset($_SESSION['success']) && $_SESSION['success'] != ''){
+		$success = $_SESSION['success'];
+		unset($_SESSION['success']);
+	}
 
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			if(empty($_POST["name"])|| empty($_POST["description"])){
-				if(empty($_POST["name"])){
-					array_push($errors,"Name Required");
-				}
-				if(empty($_POST["description"])){
-					array_push($errors,"Description Required");
-				}
-			}else{
-				$name = $_POST["name"];
-				$description = $_POST["description"];
-				$type = $_POST["type"];
-				$status = 0;
-				$deadline = $_POST["deadline"];
-				$main_tag = $_POST["main_tag"];
+	if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
+		array_push($errors,$_SESSION['error']);
+		unset($_SESSION['error']);
+	}
 
-				save_task($name, $description, $type, $status, $deadline, $main_tag);
-			}	
-		}
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+		if(empty($_POST["task_name"])|| empty($_POST["task_description"])){
+			if(empty($_POST["task_name"])){
+				array_push($errors,"Name Required");
+			}
+			if(empty($_POST["task_description"])){
+				array_push($errors,"Description Required");
+			}
+		}else{
+			$name = $_POST["task_name"];
+			$description = $_POST["task_description"];
+			$type = $_POST["task_type"];
+			$status = 0;
+			$deadline = $_POST["task_deadline"];
+			$main_tag = $_POST["task_main_tag"];
 
-        require "../views/create_task_view.php";
-	?>
+			save_task($name, $description, $type, $status, $deadline, $main_tag);
+		}	
+	}
+
+	require "../views/create_task_view.php";
+?>

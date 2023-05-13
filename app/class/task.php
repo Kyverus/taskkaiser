@@ -2,6 +2,102 @@
     require_once "../app/class/validation.php";
     require_once "../database/db.php";
 
+    function get_tasks(){
+        $conn = dbconnect();
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM tasks WHERE status = 0 AND (deadline > '$date' OR deadline IS NULL)";
+        $result = $conn->query($sql);
+
+        return $result;
+    }
+
+    function get_overdue_tasks(){
+        $conn = dbconnect();
+        $date = date("Y/m/d");
+        $sql = "SELECT * FROM tasks WHERE status = 0 AND (deadline < '$date')";
+        $result = $conn->query($sql);
+
+        return $result;
+    }
+
+    function get_completed_tasks(){
+        $conn = dbconnect();
+
+        $sql = "SELECT * FROM tasks WHERE status = 1";
+        $result = $conn->query($sql);
+
+        return $result;
+    }
+
+    function get_task_by_id($id){
+        $conn = dbconnect();
+
+        $stmt = $conn->prepare("SELECT * FROM tasks WHERE id = ?");
+		$stmt->bind_param('i',$id);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
+    function complete_task($id){
+        $conn = dbconnect();
+        $status = 1;
+
+        $stmt = $conn->prepare("Update tasks SET status = ? WHERE id = ?");
+		$stmt->bind_param('ii',$status,$id);
+
+        if ($stmt->execute()) {
+            $_SESSION['success'] = 'Task Completed';
+            
+            $stmt->close();
+            $conn->close(); 
+
+            header('Location: /view-task');
+            exit();
+        }else{            
+            $_SESSION['error'] = $stmt->error;
+            
+            $stmt->close();
+            $conn->close(); 
+
+            header('Location: /view-task');
+            exit();
+        } 
+
+        $result = $stmt->get_result(); //might not be reached
+    }
+
+    function revert_task($id){
+        $conn = dbconnect();
+        $status = 0;
+
+        $stmt = $conn->prepare("Update tasks SET status = ? WHERE id = ?");
+		$stmt->bind_param('ii',$status,$id);
+
+        if ($stmt->execute()) {
+            $_SESSION['success'] = 'Task Reverted';
+            
+            $stmt->close();
+            $conn->close(); 
+
+            header('Location: /view-completed-task');
+            exit();
+        }else{            
+            $_SESSION['error'] = $stmt->error;
+            
+            $stmt->close();
+            $conn->close(); 
+
+            header('Location: /view-completed-task');
+            exit();
+        } 
+
+        $result = $stmt->get_result(); //might not be reached
+    }
+
     function save_task($name, $description, $type, $status, $deadline, $main_tag){
         $conn = dbconnect();
 
@@ -32,89 +128,6 @@
             $conn->close(); 
 
             header('Location: /create-task');
-            exit();
-        } 
-
-        $result = $stmt->get_result(); //might not be reached
-    }
-
-    function view_tasks(){
-        $conn = dbconnect();
-        $date = date("Y/m/d");
-        $sql = "SELECT * FROM tasks WHERE status = 0 AND (deadline > '$date' OR deadline IS NULL)";
-        $result = $conn->query($sql);
-
-        return $result;
-    }
-
-    function view_overdue_tasks(){
-        $conn = dbconnect();
-        $date = date("Y/m/d");
-        $sql = "SELECT * FROM tasks WHERE status = 0 AND (deadline < '$date')";
-        $result = $conn->query($sql);
-
-        return $result;
-    }
-
-    function view_completed_tasks(){
-        $conn = dbconnect();
-
-        $sql = "SELECT * FROM tasks WHERE status = 1";
-        $result = $conn->query($sql);
-
-        return $result;
-    }
-
-    function revert_task($id){
-        $conn = dbconnect();
-        $status = 0;
-
-        $stmt = $conn->prepare("Update tasks SET status = ? WHERE id = ?");
-		$stmt->bind_param('ii',$status,$id);
-
-        if ($stmt->execute()) {
-            $_SESSION['success'] = 'Task Completed';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-completed-task');
-            exit();
-        }else{            
-            $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-completed-task');
-            exit();
-        } 
-
-        $result = $stmt->get_result(); //might not be reached
-    }
-
-    function complete_task($id){
-        $conn = dbconnect();
-        $status = 1;
-
-        $stmt = $conn->prepare("Update tasks SET status = ? WHERE id = ?");
-		$stmt->bind_param('ii',$status,$id);
-
-        if ($stmt->execute()) {
-            $_SESSION['success'] = 'Task Completed';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
-            exit();
-        }else{            
-            $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
             exit();
         } 
 
@@ -154,19 +167,6 @@
         } 
 
         $result = $stmt->get_result(); //might not be reached
-    }
-
-    function get_task_by_id($id){
-        $conn = dbconnect();
-
-        $stmt = $conn->prepare("SELECT * FROM tasks WHERE id = ?");
-		$stmt->bind_param('i',$id);
-
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-
-        return $result;
     }
 
     function delete_task($id){

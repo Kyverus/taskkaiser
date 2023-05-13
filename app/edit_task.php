@@ -1,5 +1,10 @@
 <?php 
-	require '../app/class/task.php';
+require '../app/class/task.php';
+require '../app/class/type.php';
+require '../app/class/tag.php';
+
+    $types = get_types();
+    $tags = get_tags();
 
     session_start();
     $errors = array();
@@ -9,21 +14,21 @@
         unset($_SESSION['error']);
     }
 
-    if (isset($_POST['update'])) {
-        if(empty($_POST["name"])|| empty($_POST["description"])){
-            if(empty($_POST["name"])){
+    if (isset($_POST['task_update'])) {
+        if(empty($_POST["task_name"])|| empty($_POST["task_description"])){
+            if(empty($_POST["task_name"])){
                 array_push($errors,"Name Required");
             }
-            if(empty($_POST["description"])){
+            if(empty($_POST["task_description"])){
                 array_push($errors,"Description Required");
             }
         }else{
-            $id = $_POST["id"];
-            $name = $_POST["name"];
-            $description = $_POST["description"];
-            $type = $_POST["type"];
-            $deadline = $_POST["deadline"];
-            $main_tag = $_POST["main_tag"];
+            $id = $_POST["task_id"];
+            $name = $_POST["task_name"];
+            $description = $_POST["task_description"];
+            $type = $_POST["task_type"];
+            $deadline = $_POST["task_deadline"];
+            $main_tag = $_POST["task_main_tag"];
     
             update_task($name, $description, $type, $deadline, $main_tag, $id);
         }	
@@ -31,8 +36,6 @@
 
     if (isset($_GET['id'])) {
         $result = get_task_by_id($_GET['id']);
-    
-        $task_id = $task_name = $task_description = $task_type = $task_deadline = $task_main_tag = ""; 
 
         if ($result->num_rows > 0) {
             

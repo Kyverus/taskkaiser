@@ -1,7 +1,7 @@
 <?php
 require '../app/class/task.php';
 
-$result = view_tasks();
+$tasks = get_tasks();
 
 session_start();
 $errors = array();
@@ -22,17 +22,17 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
 }
 
 //MESSAGES
-if($result->num_rows == 0){
+if($tasks->num_rows == 0){
     $emptyinfo = "You dont have any current tasks - Take a rest or create tasks!";
 }
 
-if (isset($_POST['delete'])) {
-    $id = $_POST["id"];
+if (isset($_POST['task_delete'])) {
+    $id = $_POST["task_id"];
     delete_task($id);
 } 
 
-if (isset($_POST['complete'])) {
-    $id = $_POST["id"];
+if (isset($_POST['task_complete'])) {
+    $id = $_POST["task_id"];
     complete_task($id);
 } 
 

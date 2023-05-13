@@ -39,6 +39,9 @@ include "templates/header.php" ?>
 </div>
 
 <div class="container">
+<?php
+if ($tasks->num_rows > 0) {
+?>
 <table class="table table-dark">
     <tr>
         <th>ID</th>
@@ -51,34 +54,33 @@ include "templates/header.php" ?>
     </tr>
 
 <?php 
-
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()){ 
+    while($task = $tasks->fetch_assoc()){ 
 ?>
 
     <tr>
-        <td><?= $row['id']; ?></td>
-        <td><?= $row['name']; ?></td>
-        <td><?= $row['description']; ?></td>
-        <td><?= $row['type']; ?></td>
-        <td><?= $row['deadline']; ?></td>
-        <td><?= $row['main_tag']; ?></td>
+        <td><?= $task['id']; ?></td>
+        <td><?= $task['name']; ?></td>
+        <td><?= $task['description']; ?></td>
+        <td><?= $task['type']; ?></td>
+        <td><?= $task['deadline']; ?></td>
+        <td><?= $task['main_tag']; ?></td>
         <td>
             <form method="post" style="display:inline">
-                <input type="hidden" name="id" value="<?=$row['id']; ?>">
-                <button class="btn btn-success" href="#" type="submit" value="complete" name="complete">Complete</button>&nbsp;
-                <a class="btn btn-info" href="/edit-task?id=<?php echo $row['id']; ?>">Edit</a>&nbsp;
-                <button class="btn btn-danger" href="#" type="submit" value="delete" name="delete">Delete</button>
+                <input type="hidden" name="task_id" value="<?=$task['id']; ?>">
+                <button class="btn btn-success" href="#" type="submit" value="task_complete" name="task_complete">Complete</button>&nbsp;
+                <a class="btn btn-info" href="/edit-task?id=<?php echo $task['id']; ?>">Edit</a>&nbsp;
+                <button class="btn btn-danger" href="#" type="submit" value="task_delete" name="task_delete">Delete</button>
             </form>
         </td>
     </tr>
 
 <?php 
-    } 
+    }
+?>
+    </table>
+<?php 
 }
 ?>
-
-</table>
 </div>
 
 <?php include "templates/footer.php" ?>
