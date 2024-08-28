@@ -3,7 +3,6 @@ require '../app/class/task.php';
 
 $completed_tasks = get_completed_tasks();
 
-session_start();
 $errors = array();
 $success = null;
 $emptyinfo = null;
@@ -22,7 +21,7 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
 }
 
 //MESSAGES
-if($completed_tasks->num_rows == 0){
+if(!$completed_tasks){
     $emptyinfo = "You haven't completed any task yet!";
 }
 

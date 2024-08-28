@@ -3,7 +3,6 @@ require '../app/class/task.php';
 
 $overdue_tasks = get_overdue_tasks();
 
-session_start();
 $errors = array();
 $success = null;
 $emptyinfo = null;
@@ -22,7 +21,7 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
 }
 
 //MESSAGES
-if($overdue_tasks->num_rows == 0){
+if(!$overdue_tasks){
     $emptyinfo = "Congratulations, You dont have any overdue tasks!";
 }
 

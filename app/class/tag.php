@@ -3,42 +3,29 @@
     require_once "../database/db.php";
 
     function get_tags(){
-        $conn = dbconnect();
-        $sql = "SELECT * FROM tags";
-        $result = $conn->query($sql);
-    
+        $query = "SELECT * FROM tags";
+        $result = PDO_FetchAll($query);
         return $result;
     }
 
     function save_tag($name, $description, $color){
-        $conn = dbconnect();
 
         $vname = validateData($name);
         $vdescription = validateData($description);
         $vcolor = validateData($color);
 
-        $stmt = $conn->prepare("INSERT INTO tags(name, description, color) VALUES (?,?,?)");
-        $stmt->bind_param('ssi',$vname,$vdescription,$vcolor);
+        $query = "INSERT INTO tags(name, description, color) VALUES (:name,:description,:color)";
+        $param = array("name"=> $vname, "description"=> $vdescription, "color" => $vcolor);
         
-        if ($stmt->execute()) {
+        if (PDO_EXECUTE($query, $param)) {
             $_SESSION['success'] = 'Tag Created Successfully';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /create-tag');
+            redirect_to('/create-tag');
             exit();
         }else{            
             $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /create-tag');
+            redirect_to('/create-tag');
             exit();
         } 
-
-        $result = $stmt->get_result(); //might not be reached
     }
 ?>
 

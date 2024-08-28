@@ -47,8 +47,8 @@ include "templates/header.php" ?>
 					<label class="form-label" for="type">Color:</label> <br>
 					<select class="form-select" aria-label="Type" name="tag_color" id="tag_color">
 						<?php
-						if ($colors->num_rows > 0) {
-							while($color = $colors->fetch_assoc()){ 
+						if ($colors) {
+							foreach($colors as $color){ 
 						?>	
 								<option value="<?=$color['id']?>" style="color:<?=$color['name']?>"><?=$color['name']?></option>
 						<?php

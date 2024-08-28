@@ -12,7 +12,9 @@
             .navbar .navbar-nav /*.nav-item:not(:last-child)*/ .nav-link{
                 border-left: 2px solid white;
             }
-
+            .navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
+                display: block !important;
+            }
         </style>
     </head>
     <body style = "padding-top: 60px" class="bg-dark">

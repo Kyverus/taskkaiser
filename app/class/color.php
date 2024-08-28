@@ -3,10 +3,8 @@
     require_once "../database/db.php";
 
     function get_colors(){
-        $conn = dbconnect();
-        $sql = "SELECT * FROM colors";
-        $result = $conn->query($sql);
-    
+        $query = "SELECT * FROM colors";
+        $result = PDO_FetchAll($query);
         return $result;
     }
 ?>

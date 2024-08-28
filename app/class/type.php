@@ -3,10 +3,8 @@
     require_once "../database/db.php";
 
     function get_types(){
-        $conn = dbconnect();
-        $sql = "SELECT * FROM types";
-        $result = $conn->query($sql);
-    
+        $query = "SELECT * FROM types";
+        $result = PDO_FetchAll($query);
         return $result;
     }
 ?>

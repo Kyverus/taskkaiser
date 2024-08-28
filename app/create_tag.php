@@ -4,7 +4,6 @@ require '../app/class/color.php';
 
 	$colors = get_colors();
 
-	session_start();
 	$errors = array();
 	$success = null;
 

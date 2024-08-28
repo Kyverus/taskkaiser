@@ -3,7 +3,6 @@ require '../app/class/task.php';
 
 $tasks = get_tasks();
 
-session_start();
 $errors = array();
 $success = null;
 $emptyinfo = null;
@@ -22,7 +21,7 @@ if(isset($_SESSION['error']) && $_SESSION['error'] != ''){
 }
 
 //MESSAGES
-if($tasks->num_rows == 0){
+if(!$tasks){
     $emptyinfo = "You dont have any current tasks - Take a rest or create tasks!";
 }
 

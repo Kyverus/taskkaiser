@@ -1,6 +1,8 @@
 <?php
 include "routes.php";
+include "refresh.php";
 
+session_start();
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 function route($uri, $routes) {

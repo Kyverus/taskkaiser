@@ -1,22 +1,30 @@
 <?php
-include "../config/config.php";
+// include "../config/config.php";
+include "_pdo.php";
 
-function dbconnect(){
-    $servername = DBHOST;
-    $username = DBUSER;
-    $password = DBPWD;
-    $dbname = DBNAME;
+$db_file = "../database/taskkaiser.db";
+PDO_Connect("sqlite:" . $db_file);
 
-    //Create Connection
-    $conn = new mysqli( $servername,  $username,  $password,  $dbname);
 
-    // mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+function saveData($query, $params=null){
 
-    //Check Connection
-    if($conn->connect_error){
-        die("Connection Failed: ".$conn->connect_error);
+}
+
+function getData($query, $config = 0, $params=null) {
+    switch($config){
+        case 0: // FETCH ALL
+            $result = PDO_FetchAll($query);
+            break;
+        case 1: // FETCH ASSOC
+        case 2: // FETCH ROW
+        default:
+            $result = null;
     }
 
-    return $conn;
+    return $result;
+}
+
+function updateData($query, $params=null) {
+
 }
 ?>

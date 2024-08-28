@@ -25,7 +25,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Show Statistics</a>
+                        <a class="nav-link active" aria-current="page" href="/show-statistics">Show Statistics</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">

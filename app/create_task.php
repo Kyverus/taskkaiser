@@ -6,7 +6,6 @@ require '../app/class/tag.php';
 	$types = get_types();
 	$tags = get_tags();
 
-	session_start();
 	$errors = array();
 	$success = null;
 

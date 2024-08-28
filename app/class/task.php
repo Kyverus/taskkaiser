@@ -3,103 +3,69 @@
     require_once "../database/db.php";
 
     function get_tasks(){
-        $conn = dbconnect();
         $date = date("Y/m/d");
-        $sql = "SELECT * FROM tasks WHERE status = 0 AND (deadline > '$date' OR deadline IS NULL)";
-        $result = $conn->query($sql);
-
+        $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline > '$date' OR deadline IS NULL)";
+        $result = PDO_FetchAll($query);
         return $result;
     }
 
     function get_overdue_tasks(){
-        $conn = dbconnect();
         $date = date("Y/m/d");
-        $sql = "SELECT * FROM tasks WHERE status = 0 AND (deadline < '$date')";
-        $result = $conn->query($sql);
+        $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline < '$date')";
+        $result = PDO_FetchAll($query);
 
         return $result;
     }
 
     function get_completed_tasks(){
-        $conn = dbconnect();
-
-        $sql = "SELECT * FROM tasks WHERE status = 1";
-        $result = $conn->query($sql);
+        $query = "SELECT * FROM tasks WHERE status = 1";
+        $result = PDO_FetchAll($query);
 
         return $result;
     }
 
     function get_task_by_id($id){
-        $conn = dbconnect();
-
-        $stmt = $conn->prepare("SELECT * FROM tasks WHERE id = ?");
-		$stmt->bind_param('i',$id);
-
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-
+        $query = "SELECT * FROM tasks WHERE id = :id";
+        $param = array("id"=> $id);
+        $result = PDO_FetchAll($query, $param);
         return $result;
     }
 
     function complete_task($id){
-        $conn = dbconnect();
         $status = 1;
 
-        $stmt = $conn->prepare("Update tasks SET status = ? WHERE id = ?");
-		$stmt->bind_param('ii',$status,$id);
+        $query = "Update tasks SET status = :status WHERE id = :id";
+        $param = array("status"=> $status, "id"=> $id);
 
-        if ($stmt->execute()) {
+        if (PDO_EXECUTE($query, $param)) {
             $_SESSION['success'] = 'Task Completed';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
+            redirect_to('/view-task');
             exit();
         }else{            
             $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
+            redirect_to('/view-task');
             exit();
         } 
-
-        $result = $stmt->get_result(); //might not be reached
     }
 
     function revert_task($id){
-        $conn = dbconnect();
         $status = 0;
 
-        $stmt = $conn->prepare("Update tasks SET status = ? WHERE id = ?");
-		$stmt->bind_param('ii',$status,$id);
+        $query = "Update tasks SET status = :status WHERE id = :id";
+        $param = array("status"=> $status, "id"=> $id);
 
-        if ($stmt->execute()) {
+        if (PDO_EXECUTE($query, $param)) {
             $_SESSION['success'] = 'Task Reverted';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-completed-task');
+            redirect_to('/view-completed-task');
             exit();
         }else{            
             $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-completed-task');
+            redirect_to('/view-completed-task');
             exit();
         } 
-
-        $result = $stmt->get_result(); //might not be reached
     }
 
     function save_task($name, $description, $type, $status, $deadline, $main_tag){
-        $conn = dbconnect();
 
         $vname = validateData($name);
         $vdescription = validateData($description);
@@ -110,32 +76,21 @@
 
         if(!$vdeadline) $vdeadline = NULL;
 
-        $stmt = $conn->prepare("INSERT INTO tasks(name, description, type, status, deadline, main_tag) VALUES (?,?,?,?,?,?)");
-        $stmt->bind_param('ssiisi',$vname,$vdescription,$vtype,$vstatus,$vdeadline,$vmain_tag);
+        $query = "INSERT INTO tasks(name, description, type, status, deadline, main_tag) VALUES (:name,:description,:type,:status,:deadline,:main_tag)";
+        $param = array("name"=>$vname, "description"=>$vdescription, "type"=>$vtype, "status"=> $status, "deadline"=> $vdeadline, "main_tag"=>$vmain_tag);
         
-        if ($stmt->execute()) {
+        if (PDO_EXECUTE($query, $param)) {
             $_SESSION['success'] = 'Task Created Successfully';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /create-task');
+            redirect_to('/show-task');
             exit();
         }else{            
             $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /create-task');
+            redirect_to('/show-task');
             exit();
         } 
-
-        $result = $stmt->get_result(); //might not be reached
     }
 
     function update_task($name, $description, $type, $deadline, $main_tag, $id){
-        $conn = dbconnect();
 
         $vname = validateData($name);
         $vdescription = validateData($description);
@@ -145,55 +100,34 @@
 
         if(!$vdeadline) $vdeadline = NULL;
 
-        $stmt = $conn->prepare("UPDATE tasks SET name = ?, description = ?, type = ?, deadline = ?, main_tag = ? WHERE id = ?");
-        $stmt->bind_param('ssisii',$vname,$vdescription,$vtype,$vdeadline,$vmain_tag,$id);
+        $query = "UPDATE tasks SET name = :name, description = :description, type = :type, deadline = :deadline, main_tag = :main_tag WHERE id = :id";
+        $param = array("name"=>$vname, "description"=>$vdescription, "type"=>$vtype,"deadline"=> $vdeadline, "main_tag"=>$vmain_tag, "id"=>$id);
         
-        if ($stmt->execute()) {
+        if (PDO_EXECUTE($query, $param)) {
             $_SESSION['success'] = 'Task Updated Successfully';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
+            redirect_to('/view-task');
             exit();
         }else{            
             $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /edit-task?id='.$id);
+            redirect_to('/edit-task?id='.$id);
             exit();
         } 
-
-        $result = $stmt->get_result(); //might not be reached
     }
 
     function delete_task($id){
-        $conn = dbconnect();
 
-        $stmt = $conn->prepare("DELETE FROM tasks WHERE id = ?");
-		$stmt->bind_param('i',$id);
+        $query = "DELETE FROM tasks WHERE id = :id";
+        $param = array("id"=> $id);
 
-        if ($stmt->execute()) {
+        if (PDO_EXECUTE($query, $param)) {
             $_SESSION['success'] = 'Task Deleted Successfully';
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
+            redirect_to('/view-task');
             exit();
         }else{            
             $_SESSION['error'] = $stmt->error;
-            
-            $stmt->close();
-            $conn->close(); 
-
-            header('Location: /view-task');
+            redirect_to('/view-task');
             exit();
         } 
 
-        $result = $stmt->get_result(); //might not be reached
     }
-
 ?>

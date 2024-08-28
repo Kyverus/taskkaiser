@@ -40,7 +40,7 @@ include "templates/header.php" ?>
 
 <div class="container">
 <?php
-if ($overdue_tasks->num_rows > 0) {
+if ($overdue_tasks) {
 ?>
 <table class="table table-dark">
     <tr>
@@ -54,7 +54,7 @@ if ($overdue_tasks->num_rows > 0) {
     </tr>
 
 <?php 
-    while($task = $overdue_tasks->fetch_assoc()){ 
+    foreach($overdue_tasks as $task){ 
 ?>
 
     <tr>
