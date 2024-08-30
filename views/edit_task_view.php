@@ -36,8 +36,8 @@ include "templates/header.php" ?>
 						<label class="form-label" for="type">Type:</label> <br>
 						<select class="form-select" aria-label="Type" name="task_type" id="task_type">
 						<?php
-						if ($types->num_rows > 0) {
-							while($type = $types->fetch_assoc()){ 
+						if ($types) {
+							foreach($types as $type){ 
 								if($type['id'] == $task_type){
 						?>
 								<option value="<?=$type['id']?>" selected><?=$type['name']?></option>
@@ -63,8 +63,8 @@ include "templates/header.php" ?>
 					<label class="form-label" for="main_tag">Main Tag:</label> <br>
 					<select class="form-select" aria-label="Main Tag" name="task_main_tag">
 					<?php
-						if ($tags->num_rows > 0) {
-							while($tag = $tags->fetch_assoc()){ 
+						if ($types) {
+							foreach($tags as $tag){ 
 								if($tag['id'] == $task_main_tag){
 						?>
 								<option value="<?=$tag['id']?>" selected style="color:<?=$tag['color']?>"><?=$tag['name']?></option>
@@ -103,9 +103,7 @@ include "templates/header.php" ?>
 				div.style.display = "none";
 				document.getElementById("task_deadline").value = "";
 			}
-		}
-
-		
+		}	
 	</script>
 
 <?php include "templates/footer.php" ?>
