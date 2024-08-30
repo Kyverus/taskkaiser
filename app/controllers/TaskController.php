@@ -7,7 +7,6 @@ require_once '../app/models/Tag.php';
     class TaskController {
         
         static function show_tasks() {
-
             $tasks = Task::all();
             $success = check_success();
             $errors = check_errors();
@@ -24,11 +23,11 @@ require_once '../app/models/Tag.php';
 
                 if($result) {
                     $_SESSION['success'] = 'Task Deleted Successfully';
-                    redirect_to('/view-task');
+                    header("Location: /view-task");
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    redirect_to('/view-task');
+                    header("Location: /view-task");
                     exit();
                 } 
             } 
@@ -41,11 +40,11 @@ require_once '../app/models/Tag.php';
 
                 if ($result) {
                     $_SESSION['success'] = 'Task Completed';
-                    redirect_to('/view-task');
+                    header("Location: /view-task");
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    redirect_to('/view-task');
+                    header("Location: /view-task");
                     exit();
                 } 
             } 
@@ -71,11 +70,11 @@ require_once '../app/models/Tag.php';
 
                 if ($result) {
                     $_SESSION['success'] = 'Task Completed';
-                    redirect_to('/view-completed-task');
+                    header("Location: /view-completed-task");
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    redirect_to('/view-completed-task');
+                    header("Location: /view-completed-task");
                     exit();
                 } 
             } 
@@ -99,11 +98,11 @@ require_once '../app/models/Tag.php';
 
                 if($result) {
                     $_SESSION['success'] = 'Task Deleted Successfully';
-                    redirect_to('/view-overdue-task');
+                    header("Location: /view-overdue-task");
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    redirect_to('/view-overdue-task');
+                    header("Location: /view-overdue-task");
                     exit();
                 } 
             } 
@@ -133,17 +132,17 @@ require_once '../app/models/Tag.php';
                     $deadline = validateData($_POST["task_deadline"]);
                     $main_tag = validateData($_POST["task_main_tag"]);
             
-                    if(!$vdeadline) $vdeadline = NULL;
+                    if(!$deadline) $deadline = NULL;
         
                     $result = Task::save($name, $description, $type, $status, $deadline, $main_tag);
 
                     if ($result) {
                         $_SESSION['success'] = 'Task Created Successfully';
-                        redirect_to('/show-task');
+                        header("Location: /view-task");
                         exit();
                     }else{            
                         $_SESSION['error'] = $stmt->error;
-                        redirect_to('/show-task');
+                        header("Location: /view-task");
                         exit();
                     } 
                 }	
@@ -167,21 +166,23 @@ require_once '../app/models/Tag.php';
                     }
                 }else{
                     $id = $_POST["task_id"];
-                    $name = $_POST["task_name"];
-                    $description = $_POST["task_description"];
-                    $type = $_POST["task_type"];
-                    $deadline = $_POST["task_deadline"];
-                    $main_tag = $_POST["task_main_tag"];
+                    $name = validateData($_POST["task_name"]);
+                    $description = validateData($_POST["task_description"]);
+                    $type = validateData($_POST["task_type"]);
+                    $deadline = validateData($_POST["task_deadline"]);
+                    $main_tag = validateData($_POST["task_main_tag"]);
+            
+                    if(!$deadline) $deadline = NULL;
             
                     $result = Task::updateAll($name, $description, $type, $deadline, $main_tag, $id);
 
                     if ($result) {
                         $_SESSION['success'] = 'Task Updated Successfully';
-                        redirect_to('/show-task');
+                        header("Location: /view-task");
                         exit();
                     }else{            
-                        $_SESSION['error'] = $stmt->error;
-                        redirect_to('/edit-task');
+                        $_SESSION['error'] = "THERE IS ERROR";
+                        header("Location: /edit-task");
                         exit();
                     } 
                 }	

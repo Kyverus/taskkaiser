@@ -19,18 +19,9 @@
         static function save($name, $description, $color){
     
             $query = "INSERT INTO tags(name, description, color) VALUES (:name,:description,:color)";
-            $param = array("name"=> $vname, "description"=> $vdescription, "color" => $vcolor);
-            
-            if (PDO_EXECUTE($query, $param)) {
-                $_SESSION['success'] = 'Tag Created Successfully';
-                redirect_to('/create-tag');
-                exit();
-            }else{            
-                $_SESSION['error'] = $stmt->error;
-                redirect_to('/create-tag');
-                exit();
-            } 
+            $param = array("name"=> $name, "description"=> $description, "color" => $color);
+
+            return PDO_EXECUTE($query, $param);
         }
     }   
 ?>
-

@@ -3,16 +3,18 @@
 
     class Task {
         static function all(){
-            $date = date("Y/m/d");
-            $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline > '$date' OR deadline IS NULL)";
-            $result = PDO_FetchAll($query);
+            $date = date("Y-m-d");
+            $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline > :date OR deadline IS NULL)";
+            $param = array("date"=> $date);
+            $result = PDO_FetchAll($query, $param);
             return $result;
         }
     
         static function allOverdue(){
-            $date = date("Y/m/d");
-            $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline < '$date')";
-            $result = PDO_FetchAll($query);
+            $date = date("Y-m-d");
+            $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline < :date)";
+            $param = array("date"=> $date);
+            $result = PDO_FetchAll($query, $param);
     
             return $result;
         }
@@ -69,6 +71,10 @@
             $param = array("id"=> $id);
             
             return PDO_EXECUTE($query, $param);   
+        }
+
+        static function errorInfo(){
+            return PDO_ErrorInfo();
         }
     }
    

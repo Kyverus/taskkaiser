@@ -1,5 +1,4 @@
 <?php
-include "refresh.php";
 include "../app/controllers/TagController.php";
 include "../app/controllers/TaskController.php";
 

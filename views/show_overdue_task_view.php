@@ -50,7 +50,7 @@ if ($overdue_tasks) {
         <th>Type</th>
         <th>Deadline</th>
         <th>Tags</th>
-        <!-- <th>Action</th> -->
+        <th>Action</th>
     </tr>
 
 <?php 
@@ -64,12 +64,12 @@ if ($overdue_tasks) {
         <td><?= $task['type']; ?></td>
         <td><?= $task['deadline']; ?></td>
         <td><?= $task['main_tag']; ?></td>
-        <!-- <td>
+        <td>
             <form method="post" style="display:inline">
                 <input type="hidden" name="task_id" value="<?=$task['id']; ?>">
-                <button class="btn btn-warning" href="#" type="submit" value="task_revert" name="task_revert">Revert</button>&nbsp;
+                <button class="btn btn-danger" href="#" type="submit" value="task_delete" name="task_delete">Delete</button>&nbsp;
             </form>
-        </td> -->
+        </td>
     </tr>
 
 <?php 

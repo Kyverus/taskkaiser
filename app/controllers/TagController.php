@@ -30,7 +30,17 @@ require_once '../app/models/Color.php';
                     $description = validateData($_POST["tag_description"]);
                     $color = validateData( $_POST["tag_color"]);
 
-                    Tag::save($name, $description, $color);
+                    $result = Tag::save($name, $description, $color);
+
+                    if ($result) {
+                        $_SESSION['success'] = 'Tag Created Successfully';
+                        header("Location: /view-task");
+                        exit();
+                    }else{            
+                        $_SESSION['error'] = $stmt->error;
+                        header("Location: /view-task");
+                        exit();
+                    } 
                 }	
             }
 
