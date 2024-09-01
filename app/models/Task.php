@@ -2,27 +2,23 @@
     require_once "../database/db.php";
 
     class Task {
+        static function setAllOverdue(){
+            $date = date("Y-m-d");
+            $query = "UPDATE tasks SET status = 2 WHERE deadline < :date";
+            $param = array("date"=> $date);
+            return PDO_EXECUTE($query, $param);    
+        }
         static function all(){
             $date = date("Y-m-d");
-            $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline > :date OR deadline IS NULL)";
-            $param = array("date"=> $date);
-            $result = PDO_FetchAll($query, $param);
-            return $result;
-        }
-    
-        static function allOverdue(){
-            $date = date("Y-m-d");
-            $query = "SELECT * FROM tasks WHERE status = 0 AND (deadline < :date)";
-            $param = array("date"=> $date);
-            $result = PDO_FetchAll($query, $param);
-    
-            return $result;
-        }
-    
-        static function allCompleted(){
-            $query = "SELECT * FROM tasks WHERE status = 1";
+            $query = "SELECT * FROM tasks";
             $result = PDO_FetchAll($query);
-    
+            return $result;
+        }
+
+        static function findByStatus($status){
+            $query = "SELECT * FROM tasks WHERE status = :status";
+            $param = array("status"=> $status);
+            $result = PDO_FetchAll($query, $param);
             return $result;
         }
     
@@ -59,8 +55,30 @@
         }
 
         static function updateByCategory($category, $value, $id) {
-            $query = "Update tasks SET :category = :value WHERE id = :id";
-            $param = array("category"=> $category, "value" => $value, "id"=> $id);
+            $query = "";
+            switch($category) {
+                case 'name':
+                    $query = "UPDATE tasks SET name = :value WHERE id = :id";
+                    break;
+                case 'description':
+                    $query = "UPDATE tasks SET description = :value WHERE id = :id";
+                    break;
+                case 'type':
+                    $query = "UPDATE tasks SET type = :value WHERE id = :id";
+                    break;
+                case 'status':
+                    $query = "UPDATE tasks SET status = :value WHERE id = :id";
+                    break;
+                case 'deadline':
+                    $query = "UPDATE tasks SET deadline = :value WHERE id = :id";
+                    break;
+                case 'main_tag':
+                    $query = "UPDATE tasks SET main_tag = :value WHERE id = :id";
+                    break;
+                default:
+                    return;
+            }
+            $param = array("value" => $value, "id"=> $id);
             
             return PDO_EXECUTE($query, $param);
         }

@@ -7,7 +7,7 @@
         <title><?= isset($PageTitle) ? $PageTitle : "Default Title"?></title> <!-- (< ? =) is php echo in short-->
         <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="icon" href="assets/notebook-icon.png" type="image/x-icon"/>
+        <link rel="icon" href="assets/icons/notebook-icon.png" type="image/x-icon"/>
 
         <style>
             .navbar .navbar-nav /*.nav-item:not(:last-child)*/ .nav-link{

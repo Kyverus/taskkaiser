@@ -9,11 +9,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">View Tasks</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/view-task">Ongoing Tasks</a></li>
+                            <li><a class="dropdown-item" href="/view-task?status=0">Ongoing Tasks</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/view-overdue-task">Overdue Tasks</a></li>
+                            <li><a class="dropdown-item" href="/view-task?status=1">Completed Tasks</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/view-completed-task">Completed Tasks</a></li>
+                            <li><a class="dropdown-item" href="/view-task?status=2">Overdue Tasks</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

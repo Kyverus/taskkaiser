@@ -5,32 +5,43 @@ require_once '../app/models/Type.php';
 require_once '../app/models/Tag.php';
 
     class TaskController {
-        
+        static function checkOverdue(){
+            return Task::setAllOverdue();
+        }
+
         static function show_tasks() {
-            $tasks = Task::all();
+            Task::setAllOverdue();
+            $tasks = Task::findByStatus(0);
+            $tags = Tag::all();
+            $types = Type::all();
+            $empty_message_value = "You dont have any current tasks - Take a rest or create tasks!";
+            $empty_message = null;
             $success = check_success();
             $errors = check_errors();
-            $emptyinfo = null;
+            
+            if (isset($_GET['status'])) {
+                $get_status = $_GET['status'];
+
+                switch($get_status){
+                    case 0:
+                        $tasks = Task::findByStatus(0);
+                        $empty_message_value = "You dont have any current tasks - Take a rest or create tasks!";
+                        break;
+                    case 1:
+                        $tasks = Task::findByStatus(1);
+                        $empty_message_value = "You haven't completed any task yet!"; 
+                        break;
+                    case 2:
+                        $tasks = Task::findByStatus(2);
+                        $empty_message_value = "Congratulations, You dont have any overdue tasks!";
+                        break;
+                }
+            }
 
             //MESSAGES
             if(!$tasks){
-                $emptyinfo = "You dont have any current tasks - Take a rest or create tasks!";
+                $empty_message = $empty_message_value;
             }
-
-            if (isset($_POST['task_delete'])) {
-                $id = $_POST["task_id"];
-                $result = Task::delete($id);
-
-                if($result) {
-                    $_SESSION['success'] = 'Task Deleted Successfully';
-                    header("Location: /view-task");
-                    exit();
-                }else{            
-                    $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
-                    exit();
-                } 
-            } 
 
             if (isset($_POST['task_complete'])) {
                 $id = $_POST["task_id"];
@@ -49,65 +60,40 @@ require_once '../app/models/Tag.php';
                 } 
             } 
 
-            require_once "../views/show_task_view.php";
-        }
-
-        static function show_completed_tasks(){
-            $completed_tasks = Task::allCompleted();
-
-            $errors = array();
-            $success = check_success();
-            $errors = check_errors();
-
-            if(!$completed_tasks){
-                $emptyinfo = "You haven't completed any task yet!";
-            }
-
-            if (isset($_POST['task_revert'])) {
+            if (isset($_POST['task_revert'])){
+                $id = $_POST["task_id"];
                 $category = "status";
-                $value = 1;
+                $value = 0;
                 $result = Task::updateByCategory($category, $value, $id);
 
                 if ($result) {
-                    $_SESSION['success'] = 'Task Completed';
-                    header("Location: /view-completed-task");
+                    $_SESSION['success'] = 'Task Reverted';
+                    header("Location: /view-task");
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-completed-task");
+                    header("Location: /view-task");
                     exit();
                 } 
             } 
 
-            require_once "../views/show_completed_task_view.php";
-        }
-
-        static function show_overdue_tasks(){
-            $overdue_tasks = Task::allOverdue();
-            $success = check_success();
-            $errors = check_errors();
-            $emptyinfo = null;
-
-            if(!$overdue_tasks){
-                $emptyinfo = "Congratulations, You dont have any overdue tasks!";
-            }
-
+            
             if (isset($_POST['task_delete'])) {
                 $id = $_POST["task_id"];
                 $result = Task::delete($id);
 
                 if($result) {
-                    $_SESSION['success'] = 'Task Deleted Successfully';
-                    header("Location: /view-overdue-task");
+                    $_SESSION['success'] = 'Task Deleted Successfully'; 
+                    header("Location: /view-task");
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-overdue-task");
+                    header("Location: /view-task");
                     exit();
                 } 
             } 
 
-            require_once "../views/show_overdue_task_view.php";
+            require_once "../views/show_task_view.php";
         }
 
         static function create_task() {
