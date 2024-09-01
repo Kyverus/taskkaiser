@@ -1,6 +1,4 @@
 <?php 
-define('DBUSER','root');
-define('DBPWD','');
-define('DBHOST','localhost');
-define('DBNAME','taskmanager');
+define('DBNAME','taskkaiser');
+define('DBPATH','../database/taskkaiser.db');
 ?>
