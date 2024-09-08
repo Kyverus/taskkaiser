@@ -10,6 +10,11 @@
         <link rel="icon" href="assets/icons/notebook-icon.png" type="image/x-icon"/>
 
         <style>
+            body{
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
             .navbar .navbar-nav /*.nav-item:not(:last-child)*/ .nav-link{
                 border-left: 2px solid white;
             }

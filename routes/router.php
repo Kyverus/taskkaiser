@@ -7,7 +7,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 function route($uri) {
     switch($uri){
         case '/':
-            TaskController::show_tasks();
+            TaskController::show_summary();
             break;
         case '/view-task':
             TaskController::show_tasks();

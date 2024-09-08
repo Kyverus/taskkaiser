@@ -44,23 +44,19 @@ if ($tasks) {
 ?>
 <table class="table table-dark">
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>Deadline</th>
-        <th>Tags</th>
-        <th>Action</th>
+        <th style="width:43%">Name</th>
+        <th style="width:10%">Type</th>
+        <th style="width:12%">Deadline</th>
+        <th style="width:10%">Tags</th>
+        <th style="width:25%"></th>
     </tr>
 
 <?php 
     foreach($tasks as $task){ 
 ?>
-
-    <tr>
-        <td><?= $task['id']; ?></td>
-        <td><?= $task['name']; ?></td>
-        <td><?= $task['description']; ?></td>
+    <tr key="<?=$task['id']?>">
+        <td><?= $task['name']; ?> 
+    </td>
         <?php 
             foreach($types as $type){
                 if($type['id'] == $task['type']){
@@ -69,30 +65,57 @@ if ($tasks) {
                 }
             } 
         ?>
-        <td><?= $task['deadline']; ?></td>
+        <td class="text-center"><?= ($task['deadline'] == "") ? "-" : $task['deadline'] ?></td>
         <?php 
+            $task_tag = "none";
+            $tag_color = "gray";
             foreach($tags as $tag){
                 if($tag['id'] == $task['main_tag']){
-                    ?> <td> <?=$tag['name']; ?> </td> <?php
+                    $task_tag = $tag;
+                    foreach($colors as $color){
+                        if($color['id'] == $tag['color']){
+                            $tag_color = $color; 
+                            break;
+                        }
+                    }   
                     break;
                 }
-            } 
+            }                     
         ?>
+        <td> 
+            <span class="badge rounded-pill" style="background-color:<?=$tag_color['name']?>"><?=$task_tag['name']; ?></span> 
+        </td>
         <td>
             <form method="post" style="display:inline">
                 <input type="hidden" name="task_id" value="<?=$task['id']; ?>">
+                <span class="btn border text-white border-3 border-info" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-title="Task Description" data-bs-content="<?=$task['description']?>"> 
+                    <img src="assets/icons/info-circle.svg"/> 
+                </span>
                 <?php 
                     switch($task['status']){
                         case 0:
-                            ?> <button class="btn btn-success" href="#" type="submit" value="task_complete" name="task_complete">Complete</button>&nbsp; <?php
+                            ?>  <button class="btn border text-white border-3 border-success" href="#" type="submit" value="task_complete" name="task_complete">
+                                    <img src="assets/icons/check-circle.svg"/> 
+                                    <!-- Complete -->
+                                </button><?php
                             break;
                         case 1:
-                            ?> <button class="btn btn-warning" href="#" type="submit" value="task_revert" name="task_revert">Revert</button>&nbsp; <?php
+                            ?>  <button class="btn border text-white border-3 border-warning" href="#" type="submit" value="task_revert" name="task_revert"> 
+                                    <img src="assets/icons/x-circle.svg"/> 
+                                    <!-- Revert -->
+                                </button><?php
                             break;
                     }
                 ?>
-                <a class="btn btn-info" href="/edit-task?id=<?php echo $task['id']; ?>">Edit</a>&nbsp;
-                <button class="btn btn-danger" href="#" type="submit" value="task_delete" name="task_delete">Delete</button>
+                <a class="btn border text-white border-3  border-warning" href="/edit-task?id=<?php echo $task['id']; ?>">
+                    <img src="assets/icons/pencil-square.svg"/> 
+                    <!-- Edit -->
+                </a>
+
+                <button class="btn border text-white border-3  border-danger" href="#" type="submit" value="task_delete" name="task_delete">
+                    <img src="assets/icons/trash.svg"/>
+                    <!-- Delete -->
+                </button>
             </form>
         </td>
     </tr>

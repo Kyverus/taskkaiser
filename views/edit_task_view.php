@@ -82,7 +82,7 @@ include "templates/header.php" ?>
 
 				<div class="d-grid col-12" style="margin-top: 30px">
 					<input type="hidden" name="task_id" value="<?=$task_id; ?>">
-					<button class="btn btn-success" type="Submit" value="task_update" name="task_update">Submit</button>
+					<button class="btn btn-success" type="Submit" value="task_update" name="task_update">Save Changes</button>
 				</div>
 			</form>
 			</div>

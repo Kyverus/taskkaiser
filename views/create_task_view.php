@@ -46,20 +46,31 @@ include "templates/header.php" ?>
 				<div class="form-group row">
 					<div class="form-group w-50">
 						<label class="form-label" for="type">Type:</label> <br>
-						<select class="form-select" aria-label="Type" name="task_type" id="task_type">
+						<select class="form-select d-inline-block" style="width:90%;" aria-label="Type" name="task_type" id="task_type">
 						<?php
 						if ($types) {
 							foreach($types as $type){ 
 						?>	
-								<option value="<?=$type['id']?>"><?=$type['name']?></option>
+								<option value="<?=$type['id']?>">
+									<?=$type['name']?>
+								</option>
 						<?php
 							}
 						}
 						?>
-						</select> <br>
+						</select> 
+						<div class="d-inline-block text-center" style="width:9%;" id="tag_description" 
+							data-bs-toggle="popover" 
+							data-bs-trigger="hover" 
+							data-bs-title="Description" 
+							data-bs-content="<?=$types[0]['description']?>" 
+							data-bs-placement="right">
+							<img src="assets/icons/info-circle.svg"/>
+						</div>
 					</div>
 
-					<div class="form-group w-50" id="form-group-deadline" style="display:none">
+
+					<div class="form-group w-50" id="form-group-deadline">
 						<label class="form-label" for="deadline">Deadline:</label> <br>
 						<input class="form-control" type="date" name="task_deadline" id="task_deadline"> <br>
 					</div>
@@ -82,7 +93,7 @@ include "templates/header.php" ?>
 				</div>
 			
 				<div class="d-grid col-12" style="margin-top: 30px">
-					<button class="btn btn-success" type="Submit">Submit</button>
+					<button class="btn btn-success" type="Submit">Create Task</button>
 				</div>
 			</form>
 			</div>
@@ -92,18 +103,34 @@ include "templates/header.php" ?>
 	<script>
 		let type = document.getElementById('task_type');
 		type.addEventListener('click', display);
+		type.addEventListener('change', onChangeType);
 
-		let div = document.getElementById('form-group-deadline');
+		let deadlineFormGroup = document.getElementById('form-group-deadline');
 
 		function display(){
-			if(type.options[type.selectedIndex].value == 2) {
-				div.style.display = "block";
+			if(type.options[type.selectedIndex].value == 1) {
+				deadlineFormGroup.style.display = "block";
 			}else{
-				div.style.display = "none";
+				deadlineFormGroup.style.display = "none";
 				document.getElementById("task_deadline").value = "";
 			}
 		}
 
+		function onChangeType(){
+			let tag_description = document.getElementById('tag_description');
+			let types = <?php echo json_encode($types)?>;
+			let description = "not set";
+
+			types.forEach((task_type) => {
+				if(task_type['id'] === type.options[type.selectedIndex].value){
+					description = task_type['description'];
+				}
+			});
+			
+			const popover = new bootstrap.Popover(tag_description, {
+				content: description
+			});
+		}
 	</script>
    
 <?php include "templates/footer.php" ?>
