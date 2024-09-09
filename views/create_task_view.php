@@ -70,7 +70,7 @@ include "templates/header.php" ?>
 					</div>
 
 
-					<div class="form-group w-50" id="form-group-deadline">
+					<div class="form-group w-50" id="form-group-deadline" style="display:none">
 						<label class="form-label" for="deadline">Deadline:</label> <br>
 						<input class="form-control" type="date" name="task_deadline" id="task_deadline"> <br>
 					</div>
@@ -108,7 +108,7 @@ include "templates/header.php" ?>
 		let deadlineFormGroup = document.getElementById('form-group-deadline');
 
 		function display(){
-			if(type.options[type.selectedIndex].value == 1) {
+			if(type.options[type.selectedIndex].value == 2) {
 				deadlineFormGroup.style.display = "block";
 			}else{
 				deadlineFormGroup.style.display = "none";

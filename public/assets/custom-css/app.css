@@ -1,0 +1,32 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+@media screen and (min-width: 991px) {
+    .navbar .navbar-nav /*.nav-item:not(:last-child)*/ .nav-link{
+        border-left: 2px solid #7e7e7e;
+        padding-left:12px;
+    }
+  }
+
+.navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
+    display: block !important;
+}
+
+.app-bg-dark{
+    background-color: #121212 !important;
+}
+
+.app-bg-light{
+    background-color: #F5F5F5 !important;
+}
+
+.task-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.task-item {
+    background-color: #252525;
+}

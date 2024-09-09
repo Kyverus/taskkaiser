@@ -42,88 +42,84 @@ include "templates/header.php" ?>
 <?php
 if ($tasks) {
 ?>
-<table class="table table-dark">
-    <tr>
-        <th style="width:43%">Name</th>
-        <th style="width:10%">Type</th>
-        <th style="width:12%">Deadline</th>
-        <th style="width:10%">Tags</th>
-        <th style="width:25%"></th>
-    </tr>
-
-<?php 
+    <div class="task-list my-3">
+<?php
     foreach($tasks as $task){ 
-?>
-    <tr key="<?=$task['id']?>">
-        <td><?= $task['name']; ?> 
-    </td>
-        <?php 
-            foreach($types as $type){
-                if($type['id'] == $task['type']){
-                    ?> <td> <?=$type['name']; ?> </td> <?php
-                    break;
-                }
-            } 
-        ?>
-        <td class="text-center"><?= ($task['deadline'] == "") ? "-" : $task['deadline'] ?></td>
-        <?php 
-            $task_tag = "none";
-            $tag_color = "gray";
-            foreach($tags as $tag){
-                if($tag['id'] == $task['main_tag']){
-                    $task_tag = $tag;
-                    foreach($colors as $color){
-                        if($color['id'] == $tag['color']){
-                            $tag_color = $color; 
-                            break;
-                        }
-                    }   
-                    break;
-                }
-            }                     
-        ?>
-        <td> 
-            <span class="badge rounded-pill" style="background-color:<?=$tag_color['name']?>"><?=$task_tag['name']; ?></span> 
-        </td>
-        <td>
-            <form method="post" style="display:inline">
-                <input type="hidden" name="task_id" value="<?=$task['id']; ?>">
-                <span class="btn border text-white border-3 border-info" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-title="Task Description" data-bs-content="<?=$task['description']?>"> 
-                    <img src="assets/icons/info-circle.svg"/> 
-                </span>
-                <?php 
-                    switch($task['status']){
-                        case 0:
-                            ?>  <button class="btn border text-white border-3 border-success" href="#" type="submit" value="task_complete" name="task_complete">
-                                    <img src="assets/icons/check-circle.svg"/> 
-                                    <!-- Complete -->
-                                </button><?php
-                            break;
-                        case 1:
-                            ?>  <button class="btn border text-white border-3 border-warning" href="#" type="submit" value="task_revert" name="task_revert"> 
-                                    <img src="assets/icons/x-circle.svg"/> 
-                                    <!-- Revert -->
-                                </button><?php
-                            break;
+        $type_name = "none";
+        $task_tag = "none";
+        $tag_color = "gray";
+
+        foreach($tags as $tag){
+            if($tag['id'] == $task['main_tag']){
+                $task_tag = $tag;
+                foreach($colors as $color){
+                    if($color['id'] == $tag['color']){
+                        $tag_color = $color; 
+                        break;
                     }
-                ?>
-                <a class="btn border text-white border-3  border-warning" href="/edit-task?id=<?php echo $task['id']; ?>">
-                    <img src="assets/icons/pencil-square.svg"/> 
-                    <!-- Edit -->
-                </a>
+                }   
+                break;
+            }
+        }     
 
-                <button class="btn border text-white border-3  border-danger" href="#" type="submit" value="task_delete" name="task_delete">
-                    <img src="assets/icons/trash.svg"/>
-                    <!-- Delete -->
-                </button>
-            </form>
-        </td>
-    </tr>
+        foreach($types as $type){
+            if($type['id'] == $task['type']){
+                break;
+            }
+        } 
+?>
+    <div class="task-item d-flex w-100 px-2 py-3 my-4 rounded-4 " key="<?=$task['id']?>">
+        <div class="d-flex ps-2 pe-4 align-items-center">
+            <span class="btn border-2 btn-outline-info rounded-pill" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-title="Task Description" data-bs-placement="left" data-bs-content="<?=$task['description']?>"> 
+                <img class="task-icon d-inline-block align-middle" src="assets/icons/clipboard2-check.svg"/> 
+            </span>  
+        </div>
+        <div class="flex-grow-1 text-white">
+            <div>
+                <span class="me-2"> <?= $task['name']; ?> <span> 
+                <span class="text-center"><?= ($task['deadline'] == "") ? "" : $task['deadline'] ?></span>
+            </div>
+            <span> <?=$type['name']; ?> </span>
+            <span class="badge rounded-pill" style="background-color:<?=$tag_color['name']?>"><?=$task_tag['name']; ?></span> 
+        </div>
+        <form method="post" class="d-flex align-items-center">
+            <input type="hidden" name="task_id" value="<?=$task['id']; ?>">
 
+            <span class="mx-1 btn border-2 btn-outline-info" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-title="Task Description" data-bs-content="<?=$task['description']?>"> 
+                <img class="task-icon d-inline-block align-middle" src="assets/icons/info-circle.svg"/> 
+            </span>   
+
+            <?php 
+                switch($task['status']){
+                    case 0:
+                        ?>  <button class="mx-1 btn border-2 btn-outline-success" href="#" type="submit" value="task_complete" name="task_complete">
+                                <img class="task-icon d-inline-block align-middle" src="assets/icons/check-circle.svg"/> 
+                                <!-- Complete -->
+                            </button><?php
+                        break;
+                    case 1:
+                        ?>  <button class="mx-1 btn border-2 btn-outline-warning" href="#" type="submit" value="task_revert" name="task_revert"> 
+                                <img class="task-icon d-inline-block align-middle" src="assets/icons/x-circle.svg"/> 
+                                <!-- Revert -->
+                            </button><?php
+                        break;
+                }
+            ?>
+            <a class="mx-1 btn border-2 btn-outline-warning" href="/edit-task?id=<?php echo $task['id']; ?>">
+                <img class="task-icon d-inline-block align-middle" src="assets/icons/pencil-square.svg"/> 
+                <!-- Edit -->
+            </a>
+
+            <button class="mx-1 btn border-2 btn-outline-danger" href="#" type="submit" value="task_delete" name="task_delete">
+                <img class="task-icon d-inline-block align-middle" src="assets/icons/trash.svg"/>
+                <!-- Delete -->
+            </button>
+        </form>
+    </div>
 <?php 
     }
 ?>
-    </table>
+    </div>
 <?php 
 }
 ?>
