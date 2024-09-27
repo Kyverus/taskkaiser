@@ -62,11 +62,11 @@ require_once '../app/models/Tag.php';
 
                 if ($result) {
                     $_SESSION['success'] = 'Task Completed';
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 } 
             } 
@@ -79,11 +79,11 @@ require_once '../app/models/Tag.php';
 
                 if ($result) {
                     $_SESSION['success'] = 'Task Reverted';
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 } 
             } 
@@ -95,11 +95,11 @@ require_once '../app/models/Tag.php';
 
                 if($result) {
                     $_SESSION['success'] = 'Task Deleted Successfully'; 
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 } 
             } 

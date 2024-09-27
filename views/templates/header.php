@@ -7,7 +7,8 @@
         <title><?= isset($PageTitle) ? $PageTitle : "Default Title"?></title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/custom-css/app.css" rel="stylesheet">
+        <link href="assets/custom-css/lightmode.css" rel="stylesheet">
+        <link href="assets/custom-css/darkmode.css" rel="stylesheet">
         <link rel="icon" href="assets/icons/notebook-icon.png" type="image/x-icon"/>
     </head>
-    <body style = "padding-top: 60px" class="app-bg-dark">
-    <?php include "navbar.php"?>
+    <body style = "padding: 60px 0px" class="app-dark">

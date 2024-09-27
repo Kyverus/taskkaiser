@@ -1,32 +1,57 @@
-body{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-@media screen and (min-width: 991px) {
-    .navbar .navbar-nav /*.nav-item:not(:last-child)*/ .nav-link{
-        border-left: 2px solid #7e7e7e;
-        padding-left:12px;
-    }
-  }
-
-.navbar-item.has-dropdown.is-hoverable:hover .navbar-dropdown {
-    display: block !important;
+:root {
+  --yellow-svg: invert(99%) sepia(65%) saturate(2575%) hue-rotate(312deg)
+    brightness(102%) contrast(101%);
+  --white-svg: invert(100%) sepia(41%) saturate(0%) hue-rotate(359deg)
+    brightness(115%) contrast(101%);
+  --black-svg: invert(0%) sepia(0%) saturate(7500%) hue-rotate(141deg)
+    brightness(102%) contrast(105%);
 }
 
-.app-bg-dark{
-    background-color: #121212 !important;
-}
-
-.app-bg-light{
-    background-color: #F5F5F5 !important;
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .task-icon {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
-.task-item {
-    background-color: #252525;
+.menu-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.menu-button {
+  width: 30% !important;
+}
+
+.menu-link {
+  text-decoration: none;
+  padding: 10px 10px;
+}
+
+#search-collapse {
+  transition: ease-in-out;
+  transition-duration: 300ms;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  border: 2pt solid;
+}
+
+.floating-button-icon {
+  width: 40px;
+  height: 40px;
+  transition: all;
+  transition-duration: 300ms;
+}
+
+.floating-button-icon:hover {
+  width: 48px;
+  height: 48px;
 }

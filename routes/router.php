@@ -33,11 +33,14 @@ function route($uri) {
 }
 
 function abort($code = 404){
-     http_response_code($code);
-     require_once "../views/{$code}.php";
-     die();
+    http_response_code($code);
+    require_once "../views/{$code}.php";
+    die();
 }
 
+function headerRefresh($delay){
+    header("Refresh: $delay");
+}
 
 route($uri);
 ?>
