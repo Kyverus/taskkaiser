@@ -1,5 +1,6 @@
 <?php 
 require_once "../app/models/validation.php";
+require_once "../app/models/Color.php";
 require_once '../app/models/Task.php';
 require_once '../app/models/Type.php';
 require_once '../app/models/Tag.php';
@@ -9,9 +10,14 @@ require_once '../app/models/Tag.php';
             return Task::setAllOverdue();
         }
 
+        static function show_summary() {
+            require_once "../views/landing_page_view.php";
+        }
+
         static function show_tasks() {
             Task::setAllOverdue();
             $tasks = Task::findByStatus(0);
+            $colors = Color::all();
             $tags = Tag::all();
             $types = Type::all();
             $empty_message_value = "You dont have any current tasks - Take a rest or create tasks!";
@@ -38,6 +44,11 @@ require_once '../app/models/Tag.php';
                 }
             }
 
+            if (isset($_GET['s'])) {
+                $tasks = Task::findByKeyword($_GET['s']);
+                $empty_message_value = "No Results Found!"; 
+            }
+
             //MESSAGES
             if(!$tasks){
                 $empty_message = $empty_message_value;
@@ -51,11 +62,11 @@ require_once '../app/models/Tag.php';
 
                 if ($result) {
                     $_SESSION['success'] = 'Task Completed';
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 } 
             } 
@@ -68,11 +79,11 @@ require_once '../app/models/Tag.php';
 
                 if ($result) {
                     $_SESSION['success'] = 'Task Reverted';
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 } 
             } 
@@ -84,11 +95,11 @@ require_once '../app/models/Tag.php';
 
                 if($result) {
                     $_SESSION['success'] = 'Task Deleted Successfully'; 
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 }else{            
                     $_SESSION['error'] = $stmt->error;
-                    header("Location: /view-task");
+                    headerRefresh(0);
                     exit();
                 } 
             } 

@@ -50,7 +50,7 @@ include "templates/header.php" ?>
 						if ($colors) {
 							foreach($colors as $color){ 
 						?>	
-								<option value="<?=$color['id']?>" style="color:<?=$color['name']?>"><?=$color['name']?></option>
+								<option value="<?=$color['id']?>" style="background-color:<?=$color['name']?>"><?=$color['display_name']?></option>
 						<?php
 							}
 						}
@@ -59,7 +59,7 @@ include "templates/header.php" ?>
 				</div>
 
 				<div class="d-grid col-12" style="margin-top: 20px">
-					<button class="btn btn-success" type="Submit">Submit</button>
+					<button class="btn btn-success" type="Submit">Create Tag</button>
 				</div>
 			</form>
 			</div>

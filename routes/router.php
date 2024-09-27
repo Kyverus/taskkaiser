@@ -7,7 +7,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 function route($uri) {
     switch($uri){
         case '/':
-            TaskController::show_tasks();
+            TaskController::show_summary();
             break;
         case '/view-task':
             TaskController::show_tasks();
@@ -33,11 +33,14 @@ function route($uri) {
 }
 
 function abort($code = 404){
-     http_response_code($code);
-     require_once "../views/{$code}.php";
-     die();
+    http_response_code($code);
+    require_once "../views/{$code}.php";
+    die();
 }
 
+function headerRefresh($delay){
+    header("Refresh: $delay");
+}
 
 route($uri);
 ?>

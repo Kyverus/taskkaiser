@@ -14,6 +14,13 @@
             $result = PDO_FetchAll($query);
             return $result;
         }
+        static function findByKeyword($keyword){
+            $word = "%" . $keyword . "%";
+            $query = "SELECT * FROM tasks WHERE (name LIKE :word) OR (description LIKE :word)";
+            $param = array("word"=> $word);
+            $result = PDO_FetchAll($query, $param);
+            return $result;
+        }
 
         static function findByStatus($status){
             $query = "SELECT * FROM tasks WHERE status = :status";
