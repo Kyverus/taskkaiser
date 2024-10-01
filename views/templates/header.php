@@ -11,4 +11,4 @@
         <link href="assets/custom-css/darkmode.css" rel="stylesheet">
         <link rel="icon" href="assets/icons/notebook-icon.png" type="image/x-icon"/>
     </head>
-    <body style = "padding: 60px 0px" class="app-dark">
+    <body class="app-dark">

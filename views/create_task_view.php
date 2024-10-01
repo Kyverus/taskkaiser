@@ -65,7 +65,7 @@ include "templates/header.php" ?>
 							data-bs-title="Description" 
 							data-bs-content="<?=$types[0]['description']?>" 
 							data-bs-placement="right">
-							<img src="assets/icons/info-circle.svg"/>
+							<img src="assets/icons/tasks/info-circle.svg"/>
 						</div>
 					</div>
 

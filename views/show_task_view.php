@@ -64,11 +64,11 @@ include "templates/header.php" ?>
 	?>
 </div>
 
-<div class="container">
+<div class="container" >
 <?php
 if ($tasks) {
 ?>
-    <div class="task-list my-3">
+    <div class="task-list" id="task-page">
 <?php
     foreach($tasks as $task){ 
         $type_name = "none";
@@ -184,5 +184,39 @@ if ($tasks) {
 }
 ?>
 </div>
+    <script>
+        let mouseDown = false;
+        let startY, scrollTop;
+        const slider = document.getElementById('task-page');
+
+        const startDragging = (e) => {
+        mouseDown = true;
+        startY = e.pageY - slider.offsetTop;
+        scrollTop = slider.scrollTop;
+        console.log("dragging");
+        slider.classList.remove("scroll-slide");
+        }
+
+        const stopDragging = (e) => {
+        mouseDown = false;
+        console.log("dragging stopped");
+        slider.classList.add("scroll-slide");
+        }
+
+        const move = (e) => {
+        e.preventDefault();
+        if(!mouseDown) { return; }
+        const y = e.pageY - slider.offsetTop;
+        const scroll = y - startY;
+        slider.scrollTop = scrollTop - scroll;
+        console.log("moving");
+        }
+
+        // Add the event listeners
+        slider.addEventListener('mousemove', move, false);
+        slider.addEventListener('mousedown', startDragging, false);
+        slider.addEventListener('mouseup', stopDragging, false);
+        slider.addEventListener('mouseleave', stopDragging, false);
+    </script>
 <?php include "templates/footer.php" ?>
 

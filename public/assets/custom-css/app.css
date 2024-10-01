@@ -8,14 +8,11 @@
 }
 
 body {
+  padding: 60px 0px !important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-.task-icon {
-  width: 16px;
-  height: 16px;
+  position: relative;
 }
 
 .menu-icon {
@@ -54,4 +51,24 @@ body {
 .floating-button-icon:hover {
   width: 48px;
   height: 48px;
+}
+
+#task-page {
+  margin: 20px 0;
+  overflow-y: hidden !important;
+  scroll-behavior: smooth;
+  height: calc(100vh - 160px) !important;
+}
+
+.scroll-slide {
+  scroll-snap-type: y mandatory;
+}
+
+.task-item {
+  scroll-snap-align: start;
+}
+
+.task-icon {
+  width: 16px;
+  height: 16px;
 }
