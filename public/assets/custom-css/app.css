@@ -8,7 +8,7 @@
 }
 
 body {
-  padding: 60px 0px !important;
+  padding-bottom: 60px !important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -53,7 +53,17 @@ body {
   height: 48px;
 }
 
+.fixed-center {
+  top: calc(50% - 30px) !important; /*for NavBar */
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
 #task-page {
+  padding-top: 60px;
+}
+
+#task-list {
   margin: 20px 0;
   overflow-y: hidden !important;
   scroll-behavior: smooth;

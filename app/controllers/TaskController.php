@@ -10,35 +10,28 @@ require_once '../app/models/Tag.php';
             return Task::setAllOverdue();
         }
 
-        static function show_summary() {
-            require_once "../views/landing_page_view.php";
-        }
-
         static function show_tasks() {
             Task::setAllOverdue();
-            $tasks = Task::findByStatus(0);
-            $colors = Color::all();
-            $tags = Tag::all();
-            $types = Type::all();
+            $tasks = TaskController::joinInfo(Task::findByStatus(0));
             $empty_message_value = "You dont have any current tasks - Take a rest or create tasks!";
             $empty_message = null;
-            $success = check_success();
-            $errors = check_errors();
+            $success = TaskController::check_success();
+            $errors = TaskController::check_errors();
             
             if (isset($_GET['status'])) {
                 $get_status = $_GET['status'];
 
                 switch($get_status){
                     case 0:
-                        $tasks = Task::findByStatus(0);
+                        $tasks = TaskController::joinInfo(Task::findByStatus(0));
                         $empty_message_value = "You dont have any current tasks - Take a rest or create tasks!";
                         break;
                     case 1:
-                        $tasks = Task::findByStatus(1);
+                        $tasks = TaskController::joinInfo(Task::findByStatus(1));
                         $empty_message_value = "You haven't completed any task yet!"; 
                         break;
                     case 2:
-                        $tasks = Task::findByStatus(2);
+                        $tasks = TaskController::joinInfo(Task::findByStatus(2));
                         $empty_message_value = "Congratulations, You dont have any overdue tasks!";
                         break;
                 }
@@ -110,8 +103,8 @@ require_once '../app/models/Tag.php';
         static function create_task() {
             $types = Type::all();
             $tags = Tag::all();
-            $success = check_success();
-            $errors = check_errors();
+            $success = TaskController::check_success();
+            $errors = TaskController::check_errors();
         
             if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(empty($_POST["task_name"])|| empty($_POST["task_description"])){
@@ -151,7 +144,7 @@ require_once '../app/models/Tag.php';
         static function edit_task(){
             $types = Type::all();
             $tags = Tag::all();
-            $errors = check_errors();
+            $errors = TaskController::check_errors();
         
             if (isset($_POST['task_update'])) {
                 if(empty($_POST["task_name"])|| empty($_POST["task_description"])){
@@ -203,9 +196,49 @@ require_once '../app/models/Tag.php';
                 }
             }
             require "../views/edit_task_view.php";
+            
         }
 
-        function check_success() {
+        static function joinInfo($input_tasks) {
+            $colors = Color::all();
+            $tags = Tag::all();
+            $types = Type::all();
+
+            $result = array_map(function($task) use ($colors, $tags, $types){
+                $type_name = "none";
+                $task_tag = "none";
+                $tag_color = "gray";
+
+                foreach($tags as $tag){
+                    if($tag['id'] == $task['main_tag']){
+                        $task_tag = $tag;
+                        foreach($colors as $color){
+                            if($color['id'] == $tag['color']){
+                                $tag_color = $color; 
+                                break;
+                            }
+                        }   
+                        break;
+                    }
+                }    
+                foreach($types as $type){
+                    if($type['id'] == $task['type']){
+                        $type_name = $type['name'];
+                        break;
+                    }
+                } 
+
+                $task["type_name"] = $type_name;
+                $task["task_tag"] = $task_tag;
+                $task["tag_color"] = $tag_color;
+
+                return $task;
+            }, $input_tasks);
+
+            return $result;
+        }
+
+        static function check_success() {
             $success = null;
 
             if(isset($_SESSION['success']) && $_SESSION['success'] != ''){
@@ -216,7 +249,7 @@ require_once '../app/models/Tag.php';
             return $success;
         }
 
-        function check_errors() {
+        static function check_errors() {
             $errors = array();
 
             if(isset($_SESSION['error']) && $_SESSION['error'] != ''){

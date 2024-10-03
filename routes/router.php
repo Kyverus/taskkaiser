@@ -1,13 +1,14 @@
 <?php
 include "../app/controllers/TagController.php";
 include "../app/controllers/TaskController.php";
+include "../app/controllers/StatisticsController.php";
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 function route($uri) {
     switch($uri){
         case '/':
-            TaskController::show_summary();
+            StatisticsController::show_summary();
             break;
         case '/view-task':
             TaskController::show_tasks();
