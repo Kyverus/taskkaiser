@@ -2,6 +2,7 @@
 include "../app/controllers/TagController.php";
 include "../app/controllers/TaskController.php";
 include "../app/controllers/StatisticsController.php";
+include "../app/controllers/SettingsController.php";
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
@@ -13,12 +14,6 @@ function route($uri) {
         case '/view-task':
             TaskController::show_tasks();
             break;
-        case '/view-overdue-task':
-            TaskController::show_overdue_tasks();
-            break;
-        case '/view-completed-task':
-            TaskController::show_completed_tasks();
-            break;
         case '/create-task':
             TaskController::create_task();
             break;
@@ -27,6 +22,9 @@ function route($uri) {
             break;
         case '/edit-task':
             TaskController::edit_task();
+            break;
+        case '/settings':
+            SettingsController::show_settings();
             break;
         default:
             abort();

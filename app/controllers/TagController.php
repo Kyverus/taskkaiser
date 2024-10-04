@@ -5,9 +5,28 @@ require_once '../app/models/Color.php';
 
     class TagController {
         static function show_tags() {
+            $tags = TagController::joinInfo(Tag::all());
+            return $tags;
+        }
 
-            $tags = Tag::all();
-            require_once "../views/show_tags_view.php";
+        static function joinInfo($input_tags){
+            $colors = Color::all();
+
+            $result = array_map(function($tag) use($colors){
+                $tag_color = "gray";
+
+                foreach($colors as $color){
+                    if($color['id'] == $tag['color']){
+                        $tag_color = $color; 
+                        break;
+                    }
+                }  
+
+                $tag["tag_color"] = $tag_color;
+                return $tag;
+            }, $input_tags);
+
+            return $result;
         }
 
         static function create_tag() {
@@ -34,11 +53,11 @@ require_once '../app/models/Color.php';
 
                     if ($result) {
                         $_SESSION['success'] = 'Tag Created Successfully';
-                        header("Location: /view-task");
+                        header("Location: /settings");
                         exit();
                     }else{            
                         $_SESSION['error'] = $stmt->error;
-                        header("Location: /view-task");
+                        header("Location: /settings");
                         exit();
                     } 
                 }	

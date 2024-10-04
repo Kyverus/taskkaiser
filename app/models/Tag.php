@@ -23,5 +23,13 @@
 
             return PDO_EXECUTE($query, $param);
         }
+
+        static function delete($id){
+    
+            $query = "DELETE FROM tags WHERE id = :id";
+            $param = array("id"=> $id);
+            
+            return PDO_EXECUTE($query, $param);   
+        }
     }   
 ?>

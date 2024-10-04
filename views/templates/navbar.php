@@ -10,7 +10,7 @@
                         <img class="menu-icon d-inline-block align-middle" src="assets/icons/menu/task.svg"/>
                     </a>
             
-                    <a class="btn menu-button" aria-current="page" href="/create-tag">
+                    <a class="btn menu-button" aria-current="page" href="/settings">
                         <img class="menu-icon d-inline-block align-middle" src="assets/icons/menu/gear.svg"/>
                     </a>
                 </div>

@@ -51,8 +51,11 @@ include "templates/header.php" ?>
 
 				<div class="form-group ">
 					<label class="form-label" for="main_tag">Main Tag:</label> <br>
-					<select class="form-select" aria-label="Main Tag" name="task_main_tag">
+					<select class="form-select" aria-label="Main Tag" name="task_main_tag" id="task_main_tag">
 					<?php if ($types): ?>
+						<?php if($task_main_tag == 0):?>
+							<option value="0" selected style="color:gray">None</option>
+						<?php endif; ?>
 						<?php foreach($tags as $tag): ?>
 							<?php if($tag['id'] == $task_main_tag):	?>
 								<option value="<?=$tag['id']?>" selected style="color:<?=$tag['color']?>"><?=$tag['name']?></option>
@@ -77,7 +80,7 @@ include "templates/header.php" ?>
 		let type = document.getElementById('task_type');
 		window.addEventListener("load",display);
 		type.addEventListener('click', display);
-
+		
 		let div = document.getElementById('form-group-deadline');
 
 		function display(){

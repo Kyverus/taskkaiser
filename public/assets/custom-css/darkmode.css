@@ -41,7 +41,9 @@
   border-color: aqua;
 }
 
-.app-dark a:hover {
+.app-dark a:hover,
+.app-dark .settings-action:hover,
+.app-dark .settings-link:hover {
   color: aqua;
 }
 
@@ -52,4 +54,15 @@
 
 .app-dark .task-item {
   background-color: var(--ct-black-secondary);
+}
+
+.app-dark #settings-list {
+  background-color: var(--ct-black-secondary);
+  color: var(--ct-white-main);
+}
+
+.app-dark .settings-link,
+.app-dark .settings-title,
+.app-dark .settings-action {
+  color: var(--ct-yellow);
 }

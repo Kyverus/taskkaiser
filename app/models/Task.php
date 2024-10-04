@@ -89,6 +89,14 @@
             
             return PDO_EXECUTE($query, $param);
         }
+
+        static function updateTags($initialValue, $newValue) {
+            $query = "UPDATE tasks SET main_tag = :newvalue WHERE main_tag = :initialvalue";
+          
+            $param = array("newvalue" => $newValue, "initialvalue"=> $initialValue);
+            
+            return PDO_EXECUTE($query, $param);
+        }
     
         static function delete($id){
     

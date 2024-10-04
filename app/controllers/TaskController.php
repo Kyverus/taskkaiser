@@ -204,17 +204,19 @@ require_once '../app/models/Tag.php';
             $tags = Tag::all();
             $types = Type::all();
 
-            $result = array_map(function($task) use ($colors, $tags, $types){
-                $type_name = "none";
-                $task_tag = "none";
+            $result = array_map(function($task) use($colors, $tags, $types){
+                $type_name = "No Type";
+                $task_tag = "Tagless";
                 $tag_color = "gray";
+                $tag_display_color = "Gray";
 
                 foreach($tags as $tag){
                     if($tag['id'] == $task['main_tag']){
-                        $task_tag = $tag;
+                        $task_tag = $tag["name"];
                         foreach($colors as $color){
                             if($color['id'] == $tag['color']){
-                                $tag_color = $color; 
+                                $tag_color = $color["name"]; 
+                                $tag_display_color = $color["display_name"]; 
                                 break;
                             }
                         }   
@@ -231,6 +233,7 @@ require_once '../app/models/Tag.php';
                 $task["type_name"] = $type_name;
                 $task["task_tag"] = $task_tag;
                 $task["tag_color"] = $tag_color;
+                $task["tag_display_color"] = $tag_display_color;
 
                 return $task;
             }, $input_tasks);

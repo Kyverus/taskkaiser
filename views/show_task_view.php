@@ -67,7 +67,7 @@ include "templates/header.php" ?>
 
     <div class="container">
     <?php if ($tasks): ?>
-        <div class="task-list" id="task-list">
+        <div class="task-list slider" id="task-list">
         <?php foreach($tasks as $task): 
             $task_border = "";
             $deadline_bg = "";
@@ -82,7 +82,7 @@ include "templates/header.php" ?>
                 $deadline_bg = " bg-danger";
             }
         ?>
-            <div class="<?='task-item d-flex w-100 px-2 py-3 my-4 rounded-4'.$task_border ?>" key="<?=$task['id']?>">
+            <div class="<?='task-item slide-item d-flex w-100 px-2 py-3 my-4 rounded-4'.$task_border ?>" key="<?=$task['id']?>">
                 <div class="d-flex ps-2 pe-4 align-items-center">
                     <span class="btn border-2 btn-outline-info rounded-pill" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-title="<?='Type: '.$task["type_name"]?>" data-bs-placement="left" data-bs-content="<?=$task['description']?>"> 
                         <?php if($task['type'] == 1): ?>
@@ -101,7 +101,7 @@ include "templates/header.php" ?>
                         <span class="me-2"> <?= $task['name']; ?> <span> 
                     </div>
                     <div>
-                        <span class="badge rounded-pill" style="background-color:<?=$task["tag_color"]['name']?>"><?=$task["task_tag"]['name']; ?></span> 
+                        <span class="badge rounded-pill" style="background-color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
                         <?php if($task['deadline'] != ""): ?>
                             <span class="<?='px-2 text-center'.$deadline_bg?>"><?= $task['deadline'] ?></span> 
                         <?php endif; ?>
@@ -119,7 +119,7 @@ include "templates/header.php" ?>
                             <img class="task-icon d-inline-block align-middle" src="assets/icons/tasks/check-circle.svg"/> 
                             <!-- Complete -->
                         </button>
-                    <?php elseif($task['status'] == 0): ?>
+                    <?php elseif($task['status'] == 1): ?>
                         <button class="mx-1 btn border-2 btn-outline-warning" href="#" type="submit" value="task_revert" name="task_revert"> 
                             <img class="task-icon d-inline-block align-middle" src="assets/icons/tasks/x-circle.svg"/> 
                             <!-- Revert -->
