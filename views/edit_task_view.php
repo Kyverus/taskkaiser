@@ -2,19 +2,20 @@
 $PageTitle = "Edit Task"; 
 include "templates/header.php" ?>
 
-<div class="alert-display">
-	<?php if($errors): ?>
-		<?php foreach($errors as $error):?>
-			<div class="alert alert-danger alert-dismissible fade show" role= "alert">
-				<strong>Error: </strong> <?=$error?>
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		<?php endforeach; ?>
-	<?php endif; ?>
-</div>
+<div>
+	<div class="alert-display">
+		<?php if($errors): ?>
+			<?php foreach($errors as $error):?>
+				<div class="alert alert-danger alert-dismissible fade show" role= "alert">
+					<strong>Error: </strong> <?=$error?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
 
-<div class = "container">
-		<div class="card bg-dark text-white border-0" style="margin:auto; margin-top:30px;">
+	<div class = "container position-fixed fixed-center">
+		<div class="card bg-dark border-0 shadow-sm">
 			<div class="card-body">
 			<form action="" method="post" autocomplete="off">
 				<div class="form-group">
@@ -75,7 +76,7 @@ include "templates/header.php" ?>
 			</div>
 		</div>	
 	</div>
-
+</div>
 	<script>
 		let type = document.getElementById('task_type');
 		window.addEventListener("load",display);

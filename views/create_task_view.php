@@ -22,7 +22,7 @@ include "templates/header.php" ?>
 	</div>
 
 	<div class = "container position-fixed fixed-center">
-		<div class="card bg-dark text-white border-0" style="margin:auto;">
+		<div class="card bg-dark border-0 shadow-sm" style="margin:auto;">
 			<div class="card-body">
 			<form action="" method="post" autocomplete="off">
 				<div class="form-group">
@@ -61,11 +61,10 @@ include "templates/header.php" ?>
 
 					<div class="form-group w-50" id="form-group-deadline" style="display:none">
 						<label class="form-label" for="deadline">Deadline:</label> <br>
-						<input class="form-control" type="date" name="task_deadline" id="task_deadline"> <br>
+						<input class="form-control" type="date" name="task_deadline" id="task_deadline">
 					</div>
 				</div>
-
-
+				<br>
 				<div class="form-group">
 					<label class="form-label" for="main_tag">Main Tag:</label> <br>
 					<select class="form-select" aria-label="Main Tag" name="task_main_tag">

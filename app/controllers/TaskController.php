@@ -38,7 +38,7 @@ require_once '../app/models/Tag.php';
             }
 
             if (isset($_GET['s'])) {
-                $tasks = Task::findByKeyword($_GET['s']);
+                $tasks = TaskController::joinInfo(Task::findByKeyword($_GET['s']));
                 $empty_message_value = "No Results Found!"; 
             }
 
@@ -52,9 +52,23 @@ require_once '../app/models/Tag.php';
                 $category = "status";
                 $value = 1;
                 $result = Task::updateByCategory($category, $value, $id);
+                $repeating = false;
+
+                if($result){
+                    $checkTask = Task::findById($id);
+                    if($checkTask["type"] == 3){
+                        $repeating = true;
+                        $result = Task::save($checkTask["name"], $checkTask["description"], $checkTask["type"], 0, $checkTask["deadline"], $checkTask["main_tag"]);
+                    }
+                }
 
                 if ($result) {
-                    $_SESSION['success'] = 'Task Completed';
+                    if($repeating){
+                        $_SESSION['success'] = 'Task Completed and Recreated';
+                    }else{
+                        $_SESSION['success'] = 'Task Completed';
+                    }
+                    
                     headerRefresh(0);
                     exit();
                 }else{            
@@ -143,7 +157,7 @@ require_once '../app/models/Tag.php';
 
         static function edit_task(){
             $types = Type::all();
-            $tags = Tag::all();
+            $tags = Tag::all(); 
             $errors = TaskController::check_errors();
         
             if (isset($_POST['task_update'])) {

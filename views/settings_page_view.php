@@ -20,31 +20,38 @@ include "templates/header.php";
 </div>
 
 <div class="container">
-    <div class="slider px-2" id="settings-list">
+    <div class="slider px-2 rounded-4 shadow-sm" id="settings-list">
         <form method="post">
         <input type="hidden" name="settings_language" value="<?=$settings['language']; ?>">
         <div class="d-flex align-items-center">
-            <div class="w-50 settings-title">Theme:</div>
+            <div class="w-50 d-flex flex-column">
+                <label class="settings-title">Theme</label>
+                <label>&#40;Change app theme to light or dark mode&#41;<label>
+            </div>
             <div class="w-50">
                 <input type="hidden" name="settings_theme" value="<?=$settings['theme']; ?>">
-                <input type="submit" name="toggle_theme" value="toggle_theme" id="btn-theme"/>
+                <input type="submit" name="toggle_theme" value="toggle_theme" id="btn-theme" class="settings-action"/>
             </div>
         </div>
         <hr/>
         <div class="d-flex align-items-center">
-            <div class="w-50 settings-title">Overdue Tasks Auto-Delete:</div>
+            <div class="w-50 d-flex flex-column">
+                <label class="settings-title">Auto Delete</label>
+                <label>&#40;Delete overdue and completed tasks that exceeds 30 days &#41;<label>
+            </div>
             <div class="w-50">
                 <input type="hidden" name="settings_autodelete" value="<?=$settings['autodelete']; ?>">
-                <input type="submit" name="auto_delete" value="auto_delete" id="btn-auto-delete"/>
+                <input type="submit" name="auto_delete" value="auto_delete" id="btn-auto-delete" class="settings-action"/>
             </div>
         </div>
         <hr/>
         </form>
         <div class="d-flex flex-column">
+            <span><a href="/create-tag" class="settings-action">Create Tag </a></span>
             <span class="settings-title">Tags</span>
             <?php if($tags): ?>
                 <?php foreach($tags as $tag): ?>
-                    <div class="d-flex px-4">
+                    <div class="d-flex px-5">
                         <div class="w-50"><?= $tag["name"] ?></div>
                         <form method="post" class="w-50">
                             <input type="hidden" name="tag_id" value="<?=$tag['id']; ?>">
@@ -54,8 +61,6 @@ include "templates/header.php";
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
-            
-            <span><a href="/create-tag" class="settings-action">Create Tag </a></span>
         </div>
         <hr/>
         <div class="d-flex flex-column">

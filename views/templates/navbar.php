@@ -1,4 +1,4 @@
-    <nav class="fixed-bottom bg-body-tertiary" data-bs-theme="dark" id="main-navbar">
+    <nav class="fixed-bottom shadow-sm" id="main-navbar">
         <div class="container justify-content-center">
             <div class="flex-grow-1" id="menu-icons">
                 <div class="btn-group w-100 py-2" role="group" aria-label="Basic example">

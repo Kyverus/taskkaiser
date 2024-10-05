@@ -1,5 +1,5 @@
 {
     "theme": "dark",
     "language": "en",
-    "autodelete": true
+    "autodelete": false
 }

@@ -49,6 +49,7 @@ input[type="reset"] {
 
 .floating-button {
   position: fixed;
+  z-index: 1000;
   bottom: 80px;
   right: 20px;
   border: 2pt solid;
@@ -83,7 +84,7 @@ input[type="reset"] {
 }
 
 #settings-list {
-  padding: 10px;
+  padding: 20px;
   margin: 20px 0;
   height: calc(100vh - 100px) !important;
 }
@@ -112,4 +113,8 @@ input[type="reset"] {
 .task-icon {
   width: 16px;
   height: 16px;
+}
+
+#statistics-card {
+  padding: 30px;
 }

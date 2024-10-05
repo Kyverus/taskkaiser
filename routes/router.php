@@ -17,11 +17,14 @@ function route($uri) {
         case '/create-task':
             TaskController::create_task();
             break;
+        case '/edit-task':
+            TaskController::edit_task();
+            break;
         case '/create-tag':
             TagController::create_tag();
             break;
-        case '/edit-task':
-            TaskController::edit_task();
+        case '/edit-tag':
+            TagController::edit_tag();
             break;
         case '/settings':
             SettingsController::show_settings();

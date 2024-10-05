@@ -5,14 +5,113 @@
     brightness(115%) contrast(101%);
   --black-svg: invert(0%) sepia(0%) saturate(7500%) hue-rotate(141deg)
     brightness(102%) contrast(105%);
-  --ct-white: #f5f5f5;
-  --ct-black: #121212;
+  --blue-svg: invert(48%) sepia(98%) saturate(1373%) hue-rotate(142deg)
+    brightness(94%) contrast(101%);
+  --ct-white-main: #f5f5f5;
+  --ct-black-main: #121212;
+  --ct-black-secondary: #252525;
+  --ct-white-secondary: #e3e3e3;
+  --ct-yellow: #ffc75e;
+  --ct-blue: #00b8b8;
 }
 
 .app-light {
-  background-color: var(--ct-white) !important;
+  background-color: var(--ct-white-secondary) !important;
+}
+
+/* Navigation Menus */
+
+.app-light #main-navbar,
+.app-light #task-nav,
+.app-light #search-input {
+  background-color: var(--ct-white-main) !important;
+}
+
+.app-light #search-input::placeholder,
+.app-light #search-input {
+  color: var(--ct-black-main) !important;
+}
+
+.app-light #task-nav a,
+.app-light #search-button,
+.app-light #search-button:hover {
+  color: var(--ct-blue);
 }
 
 .app-light .menu-icon {
-  filter: var(--black-svg);
+  filter: var(--blue-svg);
+}
+
+.app-light .menu-button:hover .menu-icon,
+.app-light .floating-button-icon {
+  filter: var(--white-svg);
+}
+
+.app-light .menu-button,
+.app-light #search-button,
+.app-light .floating-button {
+  border-color: var(--ct-blue);
+}
+
+.app-light .menu-button:active:hover,
+.app-light #search-button:active:hover,
+.app-light .floating-button:hover {
+  border-color: var(--ct-yellow);
+}
+
+.app-light a:hover,
+.app-light .settings-action:hover,
+.app-light .settings-link:hover {
+  color: var(--ct-yellow);
+}
+
+.app-light .menu-button:hover,
+.app-light .floating-button {
+  background-color: var(--ct-blue);
+}
+
+/* tasks */
+.app-light .task-item {
+  background-color: var(--ct-white-main);
+}
+
+.app-light .task-item .task-text {
+  color: var(--ct-black-main) !important;
+}
+
+.app-light .task-icon {
+  filter: var(--black-svg) !important;
+}
+
+/*settings */
+.app-light #settings-list {
+  background-color: var(--ct-white-main);
+  color: var(--ct-black-main);
+}
+
+.app-light .settings-link,
+.app-light .settings-title,
+.app-light .settings-action {
+  color: var(--ct-blue);
+}
+
+/* create-tag-view and create-task-view */
+.app-light .card {
+  background-color: var(--ct-white-main) !important;
+  color: var(--ct-black-main) !important;
+}
+
+.app-light .card button {
+  background-color: var(--ct-yellow);
+  color: var(--ct-black-main) !important;
+  border: var(--ct-yellow);
+}
+
+/* statistics */
+.app-light #statistics-card {
+  background-color: var(--ct-white-main);
+}
+
+.app-light #statistics-card h4 {
+  color: var(--ct-black-main);
 }

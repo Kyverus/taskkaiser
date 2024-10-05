@@ -3,7 +3,7 @@ $PageTitle = "View Tasks";
 include "templates/header.php" ?>
 
 <div id="task-page">
-    <nav id="task-nav" class="fixed-top bg-dark bg-body-tertiary " data-bs-theme="dark">
+    <nav id="task-nav" class="fixed-top shadow-sm" data-bs-theme="dark">
         <div class="container-fluid">
             <div class="d-flex flex-grow-1 py-2 position-relative justify-content-center" role="group">
                 <a class="menu-link" href="/view-task?status=1">Completed</a>
@@ -15,14 +15,14 @@ include "templates/header.php" ?>
             </div>
             <div class="collapse w-100 block" id="search-collapse">
                 <div class="d-flex pt-2 pb-3" role="search">
-                    <input class="form-control me-2" id="search_input" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" id="search-input" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn" id="search-button" onclick="search()">Search</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="floating-button rounded-circle">
+    <div class="floating-button rounded-circle shadow-sm">
         <a href="/create-task">
             <img class="floating-button-icon align-middle m-2" src="assets/icons/tasks/task-list-add.svg"/>
         </a>
@@ -82,7 +82,7 @@ include "templates/header.php" ?>
                 $deadline_bg = " bg-danger";
             }
         ?>
-            <div class="<?='task-item slide-item d-flex w-100 px-2 py-3 my-4 rounded-4'.$task_border ?>" key="<?=$task['id']?>">
+            <div class="<?='task-item slide-item d-flex w-100 px-2 py-3 my-4 rounded-4 shadow-sm'.$task_border ?>" key="<?=$task['id']?>">
                 <div class="d-flex ps-2 pe-4 align-items-center">
                     <span class="btn border-2 btn-outline-info rounded-pill" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-title="<?='Type: '.$task["type_name"]?>" data-bs-placement="left" data-bs-content="<?=$task['description']?>"> 
                         <?php if($task['type'] == 1): ?>
@@ -98,12 +98,16 @@ include "templates/header.php" ?>
                 </div>
                 <div class="flex-grow-1 text-white">
                     <div>
-                        <span class="me-2"> <?= $task['name']; ?> <span> 
+                        <span class="me-2 task-text"> <?= $task['name']; ?> <span> 
                     </div>
                     <div>
-                        <span class="badge rounded-pill" style="background-color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
+                        <?php if($settings["theme"] == "dark"): ?>
+                            <span class="badge rounded-pill text-white" style="background-color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
+                        <?php else: ?>
+                            <span class="badge rounded-pill" style="color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
+                        <?php endif; ?>
                         <?php if($task['deadline'] != ""): ?>
-                            <span class="<?='px-2 text-center'.$deadline_bg?>"><?= $task['deadline'] ?></span> 
+                            <span class="<?='px-2 text-center task-text '.$deadline_bg?>"><?= $task['deadline'] ?></span> 
                         <?php endif; ?>
                     </div>
                 </div>

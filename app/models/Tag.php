@@ -24,6 +24,14 @@
             return PDO_EXECUTE($query, $param);
         }
 
+        static function updateAll($name, $description, $color, $id){
+    
+            $query = "UPDATE tags SET name = :name, description = :description, color = :color WHERE id = :id";
+            $param = array("name"=>$name, "description"=>$description, "color"=>$color, "id"=>$id);
+
+            return PDO_EXECUTE($query, $param);    
+        }
+
         static function delete($id){
     
             $query = "DELETE FROM tags WHERE id = :id";
