@@ -2,23 +2,20 @@
 $PageTitle = "Edit Task"; 
 include "templates/header.php" ?>
 
-<div class="alert-display">
-	<?php
-		if($errors){
-			foreach($errors as $error){ 
-	?>
+<div>
+	<div class="alert-display">
+		<?php if($errors): ?>
+			<?php foreach($errors as $error):?>
 				<div class="alert alert-danger alert-dismissible fade show" role= "alert">
 					<strong>Error: </strong> <?=$error?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
-	<?php
-			}
-		}
-	?>
-</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
 
-<div class = "container">
-		<div class="card bg-dark text-white border-0" style="margin:auto; margin-top:30px;">
+	<div class = "container position-fixed fixed-center">
+		<div class="card bg-dark border-0 shadow-sm">
 			<div class="card-body">
 			<form action="" method="post" autocomplete="off">
 				<div class="form-group">
@@ -35,21 +32,15 @@ include "templates/header.php" ?>
 					<div class="form-group w-50">
 						<label class="form-label" for="type">Type:</label> <br>
 						<select class="form-select" aria-label="Type" name="task_type" id="task_type">
-						<?php
-						if ($types) {
-							foreach($types as $type){ 
-								if($type['id'] == $task_type){
-						?>
-								<option value="<?=$type['id']?>" selected><?=$type['name']?></option>
-						<?php
-								}else{
-						?>
-								<option value="<?=$type['id']?>"><?=$type['name']?></option>
-						<?php
-								}
-							}
-						}
-						?>
+						<?php if ($types): ?>
+							<?php foreach($types as $type): ?>
+								<?php if($type['id'] == $task_type): ?>
+									<option value="<?=$type['id']?>" selected><?=$type['name']?></option>
+								<?php else:	?>
+									<option value="<?=$type['id']?>"><?=$type['name']?></option>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						<?php endif; ?>
 						</select> <br>
 					</div>
 
@@ -61,22 +52,19 @@ include "templates/header.php" ?>
 
 				<div class="form-group ">
 					<label class="form-label" for="main_tag">Main Tag:</label> <br>
-					<select class="form-select" aria-label="Main Tag" name="task_main_tag">
-					<?php
-						if ($types) {
-							foreach($tags as $tag){ 
-								if($tag['id'] == $task_main_tag){
-						?>
+					<select class="form-select" aria-label="Main Tag" name="task_main_tag" id="task_main_tag">
+					<?php if ($types): ?>
+						<?php if($task_main_tag == 0):?>
+							<option value="0" selected style="color:gray">None</option>
+						<?php endif; ?>
+						<?php foreach($tags as $tag): ?>
+							<?php if($tag['id'] == $task_main_tag):	?>
 								<option value="<?=$tag['id']?>" selected style="color:<?=$tag['color']?>"><?=$tag['name']?></option>
-						<?php
-								}else{
-						?>
+							<?php else: ?>
 								<option value="<?=$tag['id']?>" style="color:<?=$tag['color']?>"><?=$tag['name']?></option>
-						<?php
-								}
-							}
-						}
-						?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
 					</select>
 				</div>
 
@@ -88,12 +76,12 @@ include "templates/header.php" ?>
 			</div>
 		</div>	
 	</div>
-
+</div>
 	<script>
 		let type = document.getElementById('task_type');
 		window.addEventListener("load",display);
 		type.addEventListener('click', display);
-
+		
 		let div = document.getElementById('form-group-deadline');
 
 		function display(){

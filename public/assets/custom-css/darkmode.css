@@ -5,17 +5,33 @@
     brightness(115%) contrast(101%);
   --black-svg: invert(0%) sepia(0%) saturate(7500%) hue-rotate(141deg)
     brightness(102%) contrast(105%);
+  --blue-svg: invert(48%) sepia(98%) saturate(1373%) hue-rotate(142deg)
+    brightness(94%) contrast(101%);
   --ct-white-main: #f5f5f5;
   --ct-black-main: #121212;
   --ct-black-secondary: #252525;
+  --ct-white-secondary: #e3e3e3;
   --ct-yellow: #ffc75e;
+  --ct-blue: #00b8b8;
 }
 
 .app-dark {
   background-color: var(--ct-black-main) !important;
 }
 
-.app-dark a,
+/* Navigation Menus */
+.app-dark #main-navbar,
+.app-dark #task-nav,
+.app-dark #search-input {
+  background-color: var(--ct-black-secondary) !important;
+}
+
+.app-dark #search-input::placeholder,
+.app-dark #search-input {
+  color: var(--ct-white-main) !important;
+}
+
+.app-dark #task-nav a,
 .app-dark #search-button,
 .app-dark #search-button:hover {
   color: var(--ct-yellow);
@@ -25,7 +41,8 @@
   filter: var(--yellow-svg);
 }
 
-.app-dark .menu-button:hover .menu-icon {
+.app-dark .menu-button:hover .menu-icon,
+.app-dark .floating-button-icon {
   filter: var(--black-svg);
 }
 
@@ -38,11 +55,13 @@
 .app-dark .menu-button:active:hover,
 .app-dark #search-button:active:hover,
 .app-dark .floating-button:hover {
-  border-color: aqua;
+  border-color: var(--ct-blue);
 }
 
-.app-dark a:hover {
-  color: aqua;
+.app-dark a:hover,
+.app-dark .settings-action:hover,
+.app-dark .settings-link:hover {
+  color: var(--ct-blue);
 }
 
 .app-dark .menu-button:hover,
@@ -50,6 +69,48 @@
   background-color: var(--ct-yellow);
 }
 
+/* tasks */
 .app-dark .task-item {
   background-color: var(--ct-black-secondary);
+}
+
+.app-dark .task-item .task-text {
+  color: var(--ct-white-main) !important;
+}
+
+.app-dark .task-icon {
+  filter: var(--white-svg) !important;
+}
+
+/*settings */
+.app-dark #settings-list {
+  background-color: var(--ct-black-secondary);
+  color: var(--ct-white-main);
+}
+
+.app-dark .settings-link,
+.app-dark .settings-title,
+.app-dark .settings-action {
+  color: var(--ct-yellow);
+}
+
+/* create-tag-view and create-task-view */
+.app-dark .card {
+  background-color: var(--ct-black-secondary) !important;
+  color: var(--ct-white-main) !important;
+}
+
+.app-dark .card button {
+  background-color: var(--ct-yellow);
+  color: var(--ct-black-main) !important;
+  border: var(--ct-yellow);
+}
+
+/* statistics */
+.app-dark #statistics-card {
+  background-color: var(--ct-black-secondary);
+}
+
+.app-dark #statistics-card h4 {
+  color: var(--ct-white-main);
 }

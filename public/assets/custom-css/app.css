@@ -8,14 +8,24 @@
 }
 
 body {
+  padding-bottom: 60px !important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
-.task-icon {
-  width: 16px;
-  height: 16px;
+.settings-link,
+.settings-action,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 .menu-icon {
@@ -39,6 +49,7 @@ body {
 
 .floating-button {
   position: fixed;
+  z-index: 1000;
   bottom: 80px;
   right: 20px;
   border: 2pt solid;
@@ -51,7 +62,59 @@ body {
   transition-duration: 300ms;
 }
 
-.floating-button-icon:hover {
+.floating-button-icon:hover,
+.floating-button:hover .floating-button-icon {
   width: 48px;
   height: 48px;
+}
+
+.fixed-center {
+  top: calc(50% - 30px) !important; /*for NavBar */
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+#task-page {
+  padding-top: 60px;
+}
+
+#task-list {
+  margin: 20px 0;
+  height: calc(100vh - 160px) !important;
+}
+
+#settings-list {
+  padding: 20px;
+  margin: 20px 0;
+  height: calc(100vh - 100px) !important;
+}
+
+.settings-action {
+  text-decoration: none;
+}
+
+.settings-link {
+  text-decoration: underline;
+}
+
+.slider {
+  overflow-y: hidden !important;
+  scroll-behavior: smooth;
+}
+
+.scroll-slide {
+  scroll-snap-type: y mandatory;
+}
+
+.slide-item {
+  scroll-snap-align: start;
+}
+
+.task-icon {
+  width: 16px;
+  height: 16px;
+}
+
+#statistics-card {
+  padding: 30px;
 }

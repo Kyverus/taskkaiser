@@ -1,3 +1,13 @@
+<?php
+    $path = 'data/settings.json';
+    $readJSON = file_get_contents($path);
+    $settings = json_decode($readJSON, true);
+    $body_theme = "app-light";
+    if($settings["theme"] == "dark"){
+        $body_theme = "app-dark";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,5 +20,7 @@
         <link href="assets/custom-css/lightmode.css" rel="stylesheet">
         <link href="assets/custom-css/darkmode.css" rel="stylesheet">
         <link rel="icon" href="assets/icons/notebook-icon.png" type="image/x-icon"/>
+        <script src="js/chart.umd.js"></script>
+        <script src='/data/settings.json'></script>
     </head>
-    <body style = "padding: 60px 0px" class="app-dark">
+    <body class="<?=$body_theme?>">

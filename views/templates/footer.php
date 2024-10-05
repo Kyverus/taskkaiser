@@ -5,7 +5,7 @@
             const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
             function search(){ 
-                let search = document.getElementById('search_input').value;
+                let search = document.getElementById('search-input').value;
 
                 location.href = `/view-task?s=${search}`;
             }	
