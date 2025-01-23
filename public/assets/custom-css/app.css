@@ -118,3 +118,23 @@ input[type="reset"] {
 #statistics-card {
   padding: 30px;
 }
+
+#dev-profile img {
+  max-width: 332px;
+  max-height: 332px;
+}
+
+#dev-profile {
+  display: flex;
+}
+
+.tag-pill {
+  border: solid 2px;
+}
+
+@media only screen and (max-width: 768px) {
+  #dev-profile {
+    display: block;
+    text-align: center;
+  }
+}
