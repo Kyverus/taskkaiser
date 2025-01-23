@@ -64,8 +64,8 @@ include "templates/header.php";
         </div>
         <hr/>
         <div class="d-flex flex-column">
-            <span class="settings-title">About</span>
-            <span class="settings-title">Help</span>
+            <a class="settings-link" href="/about">About</a>
+            <a class="settings-link" href="https://taskkaiser-website.vercel.app/guides">Help</a>
         </div>
     </div>
 </div>

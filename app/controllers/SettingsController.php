@@ -78,6 +78,10 @@
             require_once "../views/settings_page_view.php";
         }
 
+        static function show_about(){
+            require_once "../views/about_page_view.php";
+        }
+
         
         static function check_success() {
             $success = null;

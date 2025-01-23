@@ -29,6 +29,9 @@ function route($uri) {
         case '/settings':
             SettingsController::show_settings();
             break;
+        case '/about':
+            SettingsController::show_about();
+            break;
         default:
             abort();
     }

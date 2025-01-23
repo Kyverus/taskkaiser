@@ -104,7 +104,7 @@ include "templates/header.php" ?>
                         <?php if($settings["theme"] == "dark"): ?>
                             <span class="badge rounded-pill text-white" style="background-color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
                         <?php else: ?>
-                            <span class="badge rounded-pill" style="color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
+                            <span class="badge rounded-pill tag-pill" style="color:<?=$task["tag_color"]?>; border-color:<?=$task["tag_color"]?>"><?=$task["task_tag"]; ?></span> 
                         <?php endif; ?>
                         <?php if($task['deadline'] != ""): ?>
                             <span class="<?='px-2 text-center task-text '.$deadline_bg?>"><?= $task['deadline'] ?></span> 
